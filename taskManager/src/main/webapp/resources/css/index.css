@@ -1,0 +1,39 @@
+@charset "utf-8";
+.taskName {
+	font-family: "Comic Sans MS", cursive;
+	font-size: 14px;
+	font-weight: bold;
+	font-style: italic;
+	text-align: center;
+	height: 2px;
+	padding: 10px;
+	margin: 4px;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+}
+.taskFormButtons {
+	font-family: "Comic Sans MS", cursive;
+	font-size: 10px;
+	font-style: normal;
+	background-color: #FFF;
+	letter-spacing: normal;
+	text-align: center;
+	word-spacing: normal;
+	white-space: normal;
+	display: inherit;
+	width: 75px;
+	margin: 2px;
+	float:left;
+	height:auto;
+}
+.taskForm {
+	width: 245px;
+	height:  60px;
+	border-top-style: dotted;
+	border-right-style: dotted;
+	border-bottom-style: dotted;
+	border-left-style: dotted;
+	margin:2px;
+}

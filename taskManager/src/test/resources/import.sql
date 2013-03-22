@@ -1,0 +1,26 @@
+INSERT INTO user(`username`,`password`,`email`)VALUES("username1","password1","email1");
+INSERT INTO user(`username`,`password`,`email`)VALUES("username2","password1","email2");
+INSERT INTO user(`username`,`password`,`email`)VALUES("username3","password13","email3");
+
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA1", "Task 1 WORK","Description1","2012-12-12","Work",1,"www.dt.com","status",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA2", "Task 2 WORK","Description ","2012-12-12","Work",1,"www.dt.com","status",1,1);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA3", "Task 3 WORK","Description1","2012-12-12","Work",1,"www.dt.com","status",1,1);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA4", "Task 4 WORK","Description1","2012-12-12","Work",1,"www.dt.com","status",1,1);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA5", "Task 5 WORK","Description1","2012-12-12","Work",1,"www.dt.com","status",1,1);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA6", "Task 1","Description1","2012-12-12","Study",1,"www.dt.com","status",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA7", "Task 1","Description1","2012-12-12","Study",1,"www.dt.com","status",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA8", "Task 1","Description1","2012-12-12","Study",1,"www.dt.com","status",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA9", "Task 1","Description1","2012-12-12","Study",1,"www.dt.com","status",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA10", "Task 1","Description1","2012-12-12","Personal Improvement",1,"www.dt.com","status",2,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA11", "Task 1","Description1","2012-12-12","Personal Improvement",1,"www.dt.com","status",2,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA12", "Task 1","Description1","2012-12-12","Personal Improvement",1,"www.dt.com","status",2,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA13", "Task 1","Description1","2012-12-12","Personal Improvement",1,"www.dt.com","status",2,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA14", "Task 1","Description1","2012-12-12","Personal Improvement",1,"www.dt.com","status",2,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA15", "Task 1","Description1","2012-12-12","Personal Improvement",1,"www.dt.com","status",2,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA16", "Task 1","Description1","2012-12-12","Home",1,"www.dt.com","status",2,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA17", "Task 1","Description1","2012-12-12","Home",1,"www.dt.com","status",2,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA18", "Task 1","Description1","2012-12-12","Home",1,"www.dt.com","Defined",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA19", "Task 1","Description1","2012-12-12","Home",1,"www.dt.com","Defined",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA20", "Task 1","Description1","2012-12-12","Home",1,"www.dt.com","Defined",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA21", "Task 1","Description1","2012-12-12","Home",1,"www.dt.com","Defined",1,null);
+INSERT INTO `task` (`generatedId`,`name`,`description`,`dueDate`,`category`,`timespent`,`url`,`status`,`idUser`,`parentTaskId`)VALUES    ( "TA22", "Task 1","Description1","2012-12-12","Home",1,"www.dt.com","Defined",1,null);

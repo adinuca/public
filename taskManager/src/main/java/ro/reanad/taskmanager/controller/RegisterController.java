@@ -1,0 +1,45 @@
+package ro.reanad.taskmanager.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import ro.reanad.taskmanager.model.User;
+import ro.reanad.taskmanager.service.LoginService;
+import ro.reanad.taskmanager.validators.LoginValidator;
+
+@Controller
+@RequestMapping("/register.htm")
+public class RegisterController {
+
+	@Autowired
+	private LoginService loginService;
+
+	public void setLoginService(LoginService loginService) {
+		this.loginService = loginService;
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	protected ModelAndView registre(@ModelAttribute("user") User user,
+			BindingResult result) {
+		new LoginValidator().validate(user, result);
+		if (result.hasErrors()) {
+			return new ModelAndView("index.jsp");
+		}
+		try {
+			loginService.register(user);
+			return new ModelAndView("index.jsp");
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ModelAndView("index.jsp");
+		}
+
+	}
+
+}

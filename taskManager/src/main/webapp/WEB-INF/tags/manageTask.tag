@@ -1,0 +1,70 @@
+<%@ tag language="java" pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<form name="input" action="addTask.htm" method="post">
+	<table>
+		<c:if test="${not empty task.parentTask}">
+			<tr>
+				<td><input type="hidden" name="parentTask"
+					value=${task.parentTask} />
+					<h>bla</h></td>
+			</tr>
+		</c:if>
+		<tr>
+			<td><input type="hidden" name="generatedId"
+				value=${task.generatedId}/></td>
+		</tr>
+		<tr>
+			<td><input type="hidden" name="dueDate" value=${task.dueDate}/></td>
+		</tr>
+		<tr>
+			<td><input type="hidden" name="user" value=${task.user}/></td>
+		</tr>
+
+		<tr>
+			<td>Name</td>
+			<td><input type="text" name="name" value=${task.name}/></td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td><textarea name="description">${task.description}</textarea></td>
+		</tr>
+		<tr>
+			<td>Category</td>
+			<td><select name="category">
+					<c:if test="${not empty task.category}">
+						<option selected=${task.category}>${task.category}</option>
+					</c:if>
+					<option value="Work">Work</option>
+					<option value="Study">Study</option>
+					<option value="PersonalImprovement">PersonalImprovement</option>
+					<option value="Home">Home</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td><select name="status">
+					<c:if test="${not empty task.status}">
+						<option selected=${task.status}>${task.status}</option>
+					</c:if>
+
+					<option value="defined">Defined</option>
+					<option value="inProgress">In progress</option>
+					<option value="completed">Completed</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>Time spent(no of hours)</td>
+			<td><input type="text" name="timeSpent" value=${task.timeSpent } /></td>
+		</tr>
+
+		<tr>
+			<td>URL</td>
+			<td><input type="text" name="url" value=${task.url}></input></td>
+		</tr>
+		<tr>
+			<td><input type="submit" name="addTask" value="Save" /></td>
+		</tr>
+	</table>
+
+</form>
