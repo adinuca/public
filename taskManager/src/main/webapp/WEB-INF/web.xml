@@ -7,6 +7,10 @@
         /WEB-INF/dispatcher-servlet.xml        
     </param-value>
   </context-param>
+  
+  <listener>
+  	<listener-class>ro.reanad.taskmanager.listener.ActiveSessionsListener</listener-class>
+  </listener>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
@@ -20,6 +24,7 @@
   	<servlet-class>ro.reanad.taskmanager.controller.AuthorizationServlet</servlet-class>
   	<load-on-startup>1</load-on-startup>
   </servlet>
+  
   
   <servlet-mapping>
   	<servlet-name>authorization</servlet-name>
