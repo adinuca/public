@@ -1,8 +1,10 @@
 package ro.reanad.taskmanager.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,10 +32,10 @@ public class AddTaskController {
 	}
 
 	@RequestMapping(value = "/addTask.htm", method = RequestMethod.POST)
-	protected String addTask(@ModelAttribute("task") Task task, @ModelAttribute("parentTaskId") String parentTask,
-			BindingResult result, HttpSession session)
+	protected String addTask(@ModelAttribute("task") Task task, BindingResult result, HttpSession session, HttpServletRequest request)
 			throws DuplicateGeneratedIdException {
 		task.setUser(userService.getUserWithUsername((String)session.getAttribute("user")));
+		String parentTaskId = request.getParameter("parentTaskId");
 		if (taskService.getTaskWithId(task.getGeneratedId()) != null) {
 			Task originalTask = taskService.getTaskWithId(task.getGeneratedId());
 			originalTask.setCategory(task.getCategory());
@@ -42,10 +44,10 @@ public class AddTaskController {
 			originalTask.setUrl(task.getUrl());
 			originalTask.setStatus(task.getStatus());
 			taskService.modifyTask(originalTask);
-		} else if ((parentTask == null ) || ( parentTask.equals(""))) {
+		} else if ((parentTaskId == null ) || ( parentTaskId.equals(""))) {
 			taskService.createTask(task);
 		} else {
-			taskService.addSubtask(parentTask, task);
+			taskService.addSubtask(parentTaskId, task);
 		}
 		return "WEB-INF/jsp/success.jsp";
 	}
