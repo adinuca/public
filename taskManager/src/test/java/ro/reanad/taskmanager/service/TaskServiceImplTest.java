@@ -36,7 +36,7 @@ public class TaskServiceImplTest {
 	@Test
 	public void testAddSubtask() throws DuplicateGeneratedIdException {
 		Task subtask = new Task("SubTask", user);
-		taskService.addSubtask(parentTask, subtask);
+		taskService.addSubtask(parentTask.getGeneratedId(), subtask);
 		Mockito.verify(mockTaskDao).createTask(subtask);
 	}
 

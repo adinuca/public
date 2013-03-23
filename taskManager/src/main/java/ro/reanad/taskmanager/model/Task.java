@@ -71,28 +71,24 @@ public class Task implements Serializable {
 	@Column
 	private String status;
 
-	protected Task() {
-
-	}
-
-	public Task(User user) {
+	public Task() {
 		id = (int) (Math.round(Math.random() * 1000));
 		this.name = "";
 		this.generatedId = "Task" + id;
 		this.status = "To do";
 		subTasks = new ArrayList<Task>();
-		this.user = user;
 		this.dueDate = new Date();
 	}
 
-	public Task(String name, User user) {
-		id = (int) (Math.round(Math.random() * 1000));
-		this.name = name;
-		this.generatedId = "Task" + id;
-		this.status = "To do";
-		subTasks = new ArrayList<Task>();
+	public Task(User user) {
+		this();
 		this.user = user;
-		this.dueDate = new Date();
+	}
+
+	public Task(String name, User user) {
+		this();
+		this.name = name;
+		this.user = user;
 	}
 
 	protected int getIdTask() {

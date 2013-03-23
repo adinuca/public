@@ -49,7 +49,7 @@ public class TaskController {
 			Task task = taskService.getTaskWithId(generatedId);
 			mav.addObject("task",task);
 		} else if (submit.equals("Add task")) {
-			Task task = new Task((User)request.getSession().getAttribute("user"));
+			Task task = new Task();
 			mav.addObject("task",task);
 		}
 		return mav;

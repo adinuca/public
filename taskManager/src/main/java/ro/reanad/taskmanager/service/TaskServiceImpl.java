@@ -26,9 +26,10 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void addSubtask(Task parentTask, Task subtask) {
-		subtask.setParentTask(parentTask);
-		addTask(subtask);
+	public void addSubtask(String parentTaskId, Task task) throws DuplicateGeneratedIdException {
+		Task parentTask = taskDao.getTask(parentTaskId);
+		task.setParentTask(parentTask);
+		taskDao.createTask(task);
 	}
 
 	private void addTask(Task task) {

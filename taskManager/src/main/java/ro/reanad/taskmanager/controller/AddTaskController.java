@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ro.reanad.taskmanager.dao.exception.DuplicateGeneratedIdException;
 import ro.reanad.taskmanager.model.Task;
-import ro.reanad.taskmanager.model.User;
 import ro.reanad.taskmanager.service.TaskService;
 import ro.reanad.taskmanager.service.UserService;
 
@@ -31,7 +30,7 @@ public class AddTaskController {
 	}
 
 	@RequestMapping(value = "/addTask.htm", method = RequestMethod.POST)
-	protected String addTask(@ModelAttribute("task") Task task, @ModelAttribute("parentTask") Task parentTask,
+	protected String addTask(@ModelAttribute("task") Task task, @ModelAttribute("parentTaskId") String parentTask,
 			BindingResult result, HttpSession session)
 			throws DuplicateGeneratedIdException {
 		task.setUser(userService.getUserWithUsername((String)session.getAttribute("user")));
@@ -44,7 +43,6 @@ public class AddTaskController {
 			originalTask.setStatus(task.getStatus());
 			taskService.modifyTask(originalTask);
 		} else if (parentTask == null) {
-			task.setParentTask(parentTask);
 			taskService.createTask(task);
 		} else {
 			taskService.addSubtask(parentTask, task);
