@@ -2,8 +2,7 @@ package ro.reanad.taskmanager.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ import ro.reanad.taskmanager.model.Task;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-	private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
+	private Logger logger = Logger.getLogger(TaskServiceImpl.class);
 	private TaskDao taskDao;
 
 	@Autowired
@@ -27,8 +26,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void addSubtask(String parentTaskGeneratedId, Task subtask) {
-		Task parentTask = taskDao.getTask(parentTaskGeneratedId);
+	public void addSubtask(Task parentTask, Task subtask) {
 		subtask.setParentTask(parentTask);
 		addTask(subtask);
 	}
@@ -39,10 +37,10 @@ public class TaskServiceImpl implements TaskService {
 			try {
 				taskDao.createTask(task);
 				taskAdded = true;
-				logger.debug("Subtask was added ",task.toString() );
+				logger.debug("Subtask was added "+task.toString() );
 				
 			} catch (DuplicateGeneratedIdException ex) {
-				logger.debug("Generated task id is already in db. Trying again.s ",task.toString() );
+				logger.debug("Generated task id is already in db. Trying again.s "+task.toString() );
 				mapTaskToNewId(task);
 			}
 		}

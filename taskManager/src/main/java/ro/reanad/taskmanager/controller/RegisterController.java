@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ro.reanad.taskmanager.model.User;
-import ro.reanad.taskmanager.service.LoginService;
+import ro.reanad.taskmanager.service.UserService;
 import ro.reanad.taskmanager.validators.LoginValidator;
 
 @Controller
@@ -17,9 +17,9 @@ import ro.reanad.taskmanager.validators.LoginValidator;
 public class RegisterController {
 
 	@Autowired
-	private LoginService loginService;
+	private UserService loginService;
 
-	public void setLoginService(LoginService loginService) {
+	public void setLoginService(UserService loginService) {
 		this.loginService = loginService;
 	}
 

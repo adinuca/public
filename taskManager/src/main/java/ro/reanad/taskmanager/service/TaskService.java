@@ -15,7 +15,7 @@ public interface TaskService {
 
 	List<Task> getAllTasksForUser(String username);
 
-	void addSubtask(String parentTaskGeneratedId, Task subtask) throws DuplicateGeneratedIdException;
+	void addSubtask(Task parentTask, Task subtask) throws DuplicateGeneratedIdException;
 
 	void removeTask(String generatedId);
 

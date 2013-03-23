@@ -33,15 +33,14 @@ public class Task implements Serializable {
 	@Column
 	private int idTask;
 
-	
 	private static int id = 0;
 
 	@Column(unique = true)
-	@NotNull	
+	@NotNull
 	private String generatedId;
 
 	@Column
-	@NotNull	
+	@NotNull
 	private String name;
 	@Column
 	private String description;
@@ -49,7 +48,7 @@ public class Task implements Serializable {
 	@Column
 	private String category;
 
-	@ManyToOne()
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "parentTaskId", insertable = true, updatable = true)
 	private Task parentTask;
 
@@ -65,15 +64,17 @@ public class Task implements Serializable {
 
 	@ManyToOne(cascade = {})
 	@JoinColumn(name = "idUser")
-	@NotNull	
+	@NotNull
 	private User user;
 	// private List<String> comments;
 
 	@Column
 	private String status;
-	protected Task(){
-		
+
+	protected Task() {
+
 	}
+
 	public Task(User user) {
 		id = (int) (Math.round(Math.random() * 1000));
 		this.name = "";
@@ -150,9 +151,12 @@ public class Task implements Serializable {
 		if (subTask != null) {
 			if (subTask.getUser().equals(user)) {
 				subTasks.add(subTask);
-			}else throw new WrongSubtaskException("Task has different user than subtask");
-		}else throw new WrongSubtaskException("Subtask cannot be null");
-		
+			} else
+				throw new WrongSubtaskException(
+						"Task has different user than subtask");
+		} else
+			throw new WrongSubtaskException("Subtask cannot be null");
+
 	}
 
 	public Date getDueDate() {

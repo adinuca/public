@@ -11,12 +11,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ro.reanad.taskmanager.model.Task;
 import ro.reanad.taskmanager.model.User;
+import ro.reanad.taskmanager.service.UserService;
+import ro.reanad.taskmanager.service.UserServiceImpl;
 import ro.reanad.taskmanager.service.TaskService;
 
 @Controller
 public class TaskController {
 	@Autowired
 	TaskService taskService;
+	@Autowired
+	private UserService userService;
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	public void setTaskService(TaskService taskService) {
 		this.taskService = taskService;
@@ -27,13 +35,14 @@ public class TaskController {
 			HttpServletResponse response) {
 		String submit = request.getParameter("submit");
 		String generatedId = request.getParameter("generatedId");
-		
+		Task parentTask = null;
 		ModelAndView mav = new ModelAndView("WEB-INF/jsp/manageTask.jsp");
 		
 		if (submit.equals("Add subtask")) {
-			Task task = new Task((User)request.getSession().getAttribute("user"));
-			task.setParentTask(taskService.getTaskWithId(generatedId));
-			mav.addObject("task",task);
+			Task task = new Task(userService.getUserWithUsername((String)request.getSession().getAttribute("user")));
+			parentTask = taskService.getTaskWithId(generatedId);
+			mav.addObject("parentTask",parentTask);
+			mav.addObject("task", task);
 		} else if (submit.equals("Remove")) {
 			return removeTask(request, response, generatedId);
 		} else if (submit.equals("Edit")) {
@@ -47,10 +56,13 @@ public class TaskController {
 	}
 
 	@RequestMapping(value = "/tasks.htm", method = RequestMethod.GET)
-	protected String showAddPage(HttpServletRequest request,
+	protected ModelAndView showAddPage(HttpServletRequest request,
 			HttpServletResponse response) {
-		return "/WEB-INF/jsp/addTask.jsp";
-
+		Task task = new Task(userService.getUserWithUsername((String) request
+				.getSession().getAttribute("user")));
+		ModelAndView mav = new ModelAndView("WEB-INF/jsp/manageTask.jsp");
+		mav.addObject("task", task);
+		return mav;
 	}
 
 	/*private ModelAndView editTask(HttpServletRequest request,

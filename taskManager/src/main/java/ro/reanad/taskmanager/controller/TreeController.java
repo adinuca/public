@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ro.reanad.taskmanager.model.Task;
 import ro.reanad.taskmanager.model.User;
-import ro.reanad.taskmanager.service.LoginService;
+import ro.reanad.taskmanager.service.UserService;
 import ro.reanad.taskmanager.service.TaskService;
 
 /**
@@ -39,7 +39,7 @@ public class TreeController {
 	protected ModelAndView getTasks(HttpServletRequest request,
 			HttpServletResponse response) {
 	
-		List<Task> tasks = taskService.getAllTasksForUser(((User)request.getSession().getAttribute("user")).getUsername());
+		List<Task> tasks = taskService.getAllTasksForUser((String) request.getSession().getAttribute("user"));
 		return new ModelAndView("WEB-INF/jsp/tasks.jsp", "tasks", tasks);
 	}
 	
@@ -49,9 +49,9 @@ public class TreeController {
 		String category = request.getParameter("category");
 		List<Task> tasks=new ArrayList<Task>();
 		if(category==null){
-			tasks = taskService.getAllTasksForUser(((User)request.getSession().getAttribute("user")).getUsername());
+			tasks = taskService.getAllTasksForUser((String)request.getSession().getAttribute("user"));
 		}else{
-			tasks = taskService.getAllTasksFromCategoryForUser(((User)request.getSession().getAttribute("user")).getUsername(),category);
+			tasks = taskService.getAllTasksFromCategoryForUser(((String)request.getSession().getAttribute("user")),category);
 		}
 		return new ModelAndView("WEB-INF/jsp/tasks.jsp", "tasks", tasks);
 	}

@@ -13,21 +13,28 @@ import ro.reanad.taskmanager.dao.exception.DuplicateGeneratedIdException;
 import ro.reanad.taskmanager.model.Task;
 import ro.reanad.taskmanager.model.User;
 import ro.reanad.taskmanager.service.TaskService;
+import ro.reanad.taskmanager.service.UserService;
 
 @Controller
 public class AddTaskController {
 	@Autowired
 	private TaskService taskService;
+	@Autowired
+	private UserService userService;
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	public void setTaskService(TaskService taskService) {
 		this.taskService = taskService;
 	}
 
 	@RequestMapping(value = "/addTask.htm", method = RequestMethod.POST)
-	protected String addTask(@ModelAttribute("task") Task task,
+	protected String addTask(@ModelAttribute("task") Task task, @ModelAttribute("parentTask") Task parentTask,
 			BindingResult result, HttpSession session)
 			throws DuplicateGeneratedIdException {
-		task.setUser((User) session.getAttribute("user"));
+		task.setUser(userService.getUserWithUsername((String)session.getAttribute("user")));
 		if (taskService.getTaskWithId(task.getGeneratedId()) != null) {
 			Task originalTask = taskService.getTaskWithId(task.getGeneratedId());
 			originalTask.setCategory(task.getCategory());
@@ -36,10 +43,11 @@ public class AddTaskController {
 			originalTask.setUrl(task.getUrl());
 			originalTask.setStatus(task.getStatus());
 			taskService.modifyTask(originalTask);
-		} else if (task.getParentTask() == null) {
+		} else if (parentTask == null) {
+			task.setParentTask(parentTask);
 			taskService.createTask(task);
 		} else {
-			taskService.addSubtask(task.getParentTask().getGeneratedId(), task);
+			taskService.addSubtask(parentTask, task);
 		}
 		return "WEB-INF/jsp/success.jsp";
 	}

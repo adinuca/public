@@ -3,27 +3,27 @@
 
 <form name="input" action="addTask.htm" method="post">
 	<table>
-		<c:if test="${not empty task.parentTask}">
+		<c:if test="${not empty parentTask}">
 			<tr>
 				<td><input type="hidden" name="parentTask"
-					value=${task.parentTask} />
+					value=${parentTask} >
 					<h>bla</h></td>
 			</tr>
 		</c:if>
 		<tr>
 			<td><input type="hidden" name="generatedId"
-				value=${task.generatedId}/></td>
+				value=${task.generatedId}></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td><input type="hidden" name="dueDate" value=${task.dueDate}/></td>
 		</tr>
 		<tr>
-			<td><input type="hidden" name="user" value=${task.user}/></td>
+			<td><input type="hidden" name="user" value=${task.user}></input></td>
 		</tr>
-
+ -->
 		<tr>
 			<td>Name</td>
-			<td><input type="text" name="name" value=${task.name}/></td>
+			<td><input type="text" name="name" value=${task.name} ></input></td>
 		</tr>
 		<tr>
 			<td>Description</td>

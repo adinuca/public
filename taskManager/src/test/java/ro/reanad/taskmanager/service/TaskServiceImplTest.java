@@ -16,12 +16,15 @@ import ro.reanad.taskmanager.model.User;
 public class TaskServiceImplTest {
 	private static TaskServiceImpl taskService;
 	private static TaskDao mockTaskDao;
+	private static Task parentTask;
+	private static User user =Mockito.mock(User.class);
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		mockTaskDao = Mockito.mock(TaskDao.class);
 		taskService = new TaskServiceImpl();
 		taskService.setTaskDao(mockTaskDao);
+		parentTask = new Task("ParentTask", user);
 	}
 
 	@Test
@@ -32,10 +35,8 @@ public class TaskServiceImplTest {
 
 	@Test
 	public void testAddSubtask() throws DuplicateGeneratedIdException {
-		User u = Mockito.mock(User.class);
-		Task subtask = new Task("Subtask", u);
-		taskService.addSubtask("Parent task", subtask);
-		Mockito.verify(mockTaskDao).getTask("Parent task");
+		Task subtask = new Task("SubTask", user);
+		taskService.addSubtask(parentTask, subtask);
 		Mockito.verify(mockTaskDao).createTask(subtask);
 	}
 
