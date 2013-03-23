@@ -5,8 +5,8 @@
 	<table>
 		<c:if test="${not empty parentTask}">
 			<tr>
-				<td><input type="hidden" name="parentTask"
-					value=${parentTask} >
+				<td><input type="hidden" name="parentTaskId"
+					value="${parentTask}" >
 					<h>bla</h></td>
 			</tr>
 		</c:if>

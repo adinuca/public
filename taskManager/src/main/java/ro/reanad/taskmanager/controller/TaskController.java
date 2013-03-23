@@ -35,13 +35,11 @@ public class TaskController {
 			HttpServletResponse response) {
 		String submit = request.getParameter("submit");
 		String generatedId = request.getParameter("generatedId");
-		Task parentTask = null;
 		ModelAndView mav = new ModelAndView("WEB-INF/jsp/manageTask.jsp");
 		
 		if (submit.equals("Add subtask")) {
 			Task task = new Task(userService.getUserWithUsername((String)request.getSession().getAttribute("user")));
-			parentTask = taskService.getTaskWithId(generatedId);
-			mav.addObject("parentTask",parentTask);
+			mav.addObject("parentTask",generatedId);
 			mav.addObject("task", task);
 		} else if (submit.equals("Remove")) {
 			return removeTask(request, response, generatedId);

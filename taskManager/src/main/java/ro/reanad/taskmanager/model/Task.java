@@ -78,6 +78,7 @@ public class Task implements Serializable {
 		this.status = "To do";
 		subTasks = new ArrayList<Task>();
 		this.dueDate = new Date();
+		this.parentTask=null;
 	}
 
 	public Task(User user) {

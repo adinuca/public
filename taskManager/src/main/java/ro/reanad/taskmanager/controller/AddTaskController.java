@@ -42,7 +42,7 @@ public class AddTaskController {
 			originalTask.setUrl(task.getUrl());
 			originalTask.setStatus(task.getStatus());
 			taskService.modifyTask(originalTask);
-		} else if (parentTask == null) {
+		} else if ((parentTask == null ) || ( parentTask.equals(""))) {
 			taskService.createTask(task);
 		} else {
 			taskService.addSubtask(parentTask, task);

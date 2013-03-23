@@ -14,7 +14,7 @@
 		onsubmit="POPUPW = window.open('about:blank','POPUPW',
    'width=600,height=400');">
 		<p class="taskName">${task.name}</p>
-		<input type=hidden name="generatedId" valued=${task.generatedId}></input>
+		<input type=hidden name="generatedId" value="${task.generatedId}"></input>
 		<input class="taskFormButtons" type=submit name=submit
 			value="Add subtask" /> <input class="taskFormButtons " type=submit
 			name=submit value="Edit" /> <input class="taskFormButtons "
