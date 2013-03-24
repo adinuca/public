@@ -11,7 +11,7 @@
 
 	<appender name="fileAppenderForListeners" class="org.apache.log4j.RollingFileAppender">
 		<param name="Threshold" value="INFO" />
-		<param name="File" value="sessions.log" />
+		<param name="File" value="logs/sessions.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d
                 %-5p  [%c{1}] %m %n" />
