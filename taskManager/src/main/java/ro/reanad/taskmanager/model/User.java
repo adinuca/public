@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name="user")
 public class User implements Serializable {
 	/**
 	 * 
