@@ -32,7 +32,7 @@
 
 	</bean>
 
-
+	
 	<bean id="taskService" class="ro.reanad.taskmanager.service.TaskServiceImpl">
 		<property name="taskDao" ref="taskDao" />
 		<property name="userDao" ref="userDao" />
@@ -49,5 +49,8 @@
 	<bean id="userDao" class="ro.reanad.taskmanager.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+
+	<bean id="xmlService" class="ro.reanad.taskmanager.service.ConstructXmlService">
+	</bean>	
 	
 </beans>

@@ -51,18 +51,4 @@ public class AddTaskController {
 		}
 		return "WEB-INF/jsp/success.jsp";
 	}
-	/*
-	 * private void constructTask(HttpServletRequest request, Task task) {
-	 * 
-	 * String name = request.getParameter("name"); String description =
-	 * request.getParameter("description"); String status =
-	 * request.getParameter("status"); String category =
-	 * request.getParameter("category"); String url =
-	 * request.getParameter("url"); Integer timeSpent =
-	 * Integer.parseInt(request.getParameter("timeSpent"));
-	 * 
-	 * task.setName(name); task.setDescription(description);
-	 * task.setStatus(status); task.setCategory(category);
-	 * task.setTimeSpent(timeSpent); task.setUrl(url); }
-	 */
 }

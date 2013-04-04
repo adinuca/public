@@ -11,20 +11,24 @@
 
 </head>
 <body>
-		<ul>
-			<li>
-				<form class="taskForm" name=input method=POST >
-					<p class="taskName">Tasks</p>
-					<input type=hidden name="generatedId" value=""></input>
-					<input class="taskFormButtons" type=button name=submit
-						value="Add task" onclick="window.open('tasks.htm','popUpWindow','height=500,width=300,left=100,top=100,resizable=yes,scrollbars=yes,status=yes');" />
-					</form>
-				<ul>
-					<c:forEach var="task" items="${tasks}">
-						<template:taskNode task="${task}" />
-					</c:forEach>
-				</ul>
-			</li>
-		</ul>
-	</body>
+	<form name=input method=POST action="exportXml.htm">
+		<input type="submit" value="Export tasks in XML"/>
+	</form>
+
+	<ul>
+		<li>
+			<form class="taskForm" name=input method=POST>
+				<p class="taskName">Tasks</p>
+				<input type=hidden name="generatedId" value=""></input> <input
+					class="taskFormButtons" type=button name=submit value="Add task"
+					onclick="window.open('tasks.htm','popUpWindow','height=500,width=300,left=100,top=100,resizable=yes,scrollbars=yes,status=yes');" />
+			</form>
+			<ul>
+				<c:forEach var="task" items="${tasks}">
+					<template:taskNode task="${task}" />
+				</c:forEach>
+			</ul>
+		</li>
+	</ul>
+</body>
 </html>
