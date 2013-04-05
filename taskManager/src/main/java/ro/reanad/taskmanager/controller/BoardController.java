@@ -23,7 +23,5 @@ public class BoardController {
 	protected ModelAndView postBoard(HttpServletRequest request,
 			HttpServletResponse response) {
 				return new ModelAndView("WEB-INF/jsp/board.jsp");
-
-
 	}
 }

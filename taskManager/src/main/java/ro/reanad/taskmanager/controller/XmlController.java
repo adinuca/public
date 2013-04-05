@@ -64,7 +64,7 @@ public class XmlController {
 			if (buf != null)
 				buf.close();
 		}
-		return "board.jsp";
+		return "redirect:board.htm";
 
 	}
 }

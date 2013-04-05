@@ -13,13 +13,18 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import ro.reanad.taskmanager.model.Task;
 
+@Service
 public class ConstructXmlService {
-	private static final String TASKS_XML = "tasks.xml";
+	public ConstructXmlService() {
+    }
+
+    private static final String TASKS_XML = "tasks.xml";
 	private static final String STATUS = "status";
 	private static final String TIME_SPENT = "timeSpent";
 	private static final String DUE_DATE = "dueDate";
@@ -28,6 +33,7 @@ public class ConstructXmlService {
 	private static final String NAME = "name";
 	private static final String GENERATED_ID = "generatedId";
 	private static final String TASK = "task";
+    private static final String TASKS = "tasks";
 	private DocumentBuilderFactory docFactory;
 	private DocumentBuilder docBuilder;
 	private Document doc;
@@ -53,9 +59,11 @@ public class ConstructXmlService {
 	}
 
 	private void constructXml(List<Task> tasks) {
-		for (Task task : tasks) {
-			doc.appendChild(constructTaskElement(task));
+	    Element taskElement = doc.createElement(TASKS);
+	    for (Task task : tasks) {
+			taskElement.appendChild(constructTaskElement(task));
 		}
+	    doc.appendChild(taskElement);
 	}
 
 	private Element constructTaskElement(Task task) {
@@ -83,19 +91,19 @@ public class ConstructXmlService {
 
 	private Element constructStringElement(String name, String value) {
 		Element stringElement = doc.createElement(name);
-		stringElement.setNodeValue(value);
+		stringElement.setTextContent(value);
 		return stringElement;
 	}
 
 	private Element constructDateElement(String name, Date value) {
 		Element dateElement = doc.createElement(name);
-		dateElement.setNodeValue(value.toString());
+		dateElement.setTextContent(value.toString());
 		return dateElement;
 	}
 
 	private Element constructIntElement(String name, Integer value) {
 		Element integerElement = doc.createElement(name);
-		integerElement.setNodeValue(value.toString());
+		integerElement.setTextContent(value.toString());
 		return integerElement;
 	}
 
