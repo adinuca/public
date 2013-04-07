@@ -146,14 +146,9 @@ public class Task implements Serializable {
 
 	public void addSubTasks(Task subTask) throws WrongSubtaskException {
 		if (subTask != null) {
-			if (subTask.getUser().equals(user)) {
 				subTasks.add(subTask);
-			} else
-				throw new WrongSubtaskException(
-						"Task has different user than subtask");
 		} else
 			throw new WrongSubtaskException("Subtask cannot be null");
-
 	}
 
 	public Date getDueDate() {
