@@ -16,12 +16,10 @@ public class BoardController {
 	protected ModelAndView getBoard(HttpServletRequest request,
 			HttpServletResponse response) {
 				return new ModelAndView("WEB-INF/jsp/board.jsp");
-
-
 	}
-	@RequestMapping(method = RequestMethod.POST)
+	/*@RequestMapping(method = RequestMethod.POST)
 	protected ModelAndView postBoard(HttpServletRequest request,
 			HttpServletResponse response) {
 				return new ModelAndView("WEB-INF/jsp/board.jsp");
-	}
+	}*/
 }

@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import ro.reanad.taskmanager.dao.exception.DuplicateGeneratedIdException;
 import ro.reanad.taskmanager.model.Task;
 
 @Repository
@@ -22,14 +21,16 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 	}
 
 	@Override
-	public void createTask(Task task) throws DuplicateGeneratedIdException {
+	public void createTask(Task task) {
 		try {
-			logger.debug("Created task ",task.toString());
 			getSessionFactory().getCurrentSession().saveOrUpdate(task);
+			logger.info("Created task ", task.toString());
 		} catch (ConstraintViolationException ex) {
-			throw new DuplicateGeneratedIdException();
+			if (ex.getLocalizedMessage().contains("generatedId_UNIQUE")) {
+				task.generateNewId();
+				createTask(task);
+			}
 		}
-
 	}
 
 	@Override

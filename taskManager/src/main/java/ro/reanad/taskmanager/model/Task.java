@@ -191,4 +191,10 @@ public class Task implements Serializable {
 		this.status = status;
 	}
 
+	public void generateNewId() {
+		id = (int) (Math.round(Math.random() * 1000));
+		this.generatedId = "Task" + id;
+		
+	}
+
 }

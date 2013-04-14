@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import ro.reanad.taskmanager.dao.exception.DuplicateGeneratedIdException;
 import ro.reanad.taskmanager.model.Task;
 import ro.reanad.taskmanager.model.User;
 
@@ -46,7 +45,7 @@ public class TaskDaoImplTest extends
 	}
 
 	@Test
-	public void testCreateTask() throws DuplicateGeneratedIdException {
+	public void testCreateTask() {
 		Task t = taskDao.getTask("TA1");
 		User u = t.getUser();
 		Task t1 = new Task("created task", u);

@@ -12,14 +12,19 @@
 </head>
 <body>
 	<form name=input method=POST action="exportXml.htm">
-		<input type="submit" value="Export tasks in XML"/>
+		<input type="submit" value="Export tasks in XML" />
+	</form>
+	<form name=input method=POST >
+		<input type=button name=submit value="Import xml"
+					onclick="window.open('upload.htm','popUpWindow','height=500,width=300,left=100,top=100,resizable=yes,scrollbars=yes,status=yes');" />
 	</form>
 
 	<ul>
 		<li>
 			<form class="taskForm" name=input method=POST>
 				<p class="taskName">Tasks</p>
-				<input type=hidden name="generatedId" value=""></input> <input
+				<input type=hidden name="generatedId" value=""/> 
+				<input
 					class="taskFormButtons" type=button name=submit value="Add task"
 					onclick="window.open('tasks.htm','popUpWindow','height=500,width=300,left=100,top=100,resizable=yes,scrollbars=yes,status=yes');" />
 			</form>

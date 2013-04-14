@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import ro.reanad.taskmanager.dao.TaskDao;
-import ro.reanad.taskmanager.dao.exception.DuplicateGeneratedIdException;
 import ro.reanad.taskmanager.model.Task;
 import ro.reanad.taskmanager.model.User;
 
@@ -34,14 +33,14 @@ public class TaskServiceImplTest {
 	}
 
 	@Test
-	public void testAddSubtask() throws DuplicateGeneratedIdException {
+	public void testAddSubtask(){
 		Task subtask = new Task("SubTask", user);
 		taskService.addSubtask(parentTask.getGeneratedId(), subtask);
 		Mockito.verify(mockTaskDao).createTask(subtask);
 	}
 
 	@Test
-	public void testCreateTask() throws DuplicateGeneratedIdException {
+	public void testCreateTask(){
 		User u = Mockito.mock(User.class);
 		Task task = new Task("Task", u);
 		taskService.createTask(task);

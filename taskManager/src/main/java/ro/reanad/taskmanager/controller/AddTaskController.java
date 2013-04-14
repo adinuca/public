@@ -4,14 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ro.reanad.taskmanager.dao.exception.DuplicateGeneratedIdException;
 import ro.reanad.taskmanager.model.Task;
 import ro.reanad.taskmanager.service.TaskService;
 import ro.reanad.taskmanager.service.UserService;
@@ -32,9 +30,10 @@ public class AddTaskController {
 	}
 
 	@RequestMapping(value = "/addTask.htm", method = RequestMethod.POST)
-	protected String addTask(@ModelAttribute("task") Task task, BindingResult result, HttpSession session, HttpServletRequest request)
-			throws DuplicateGeneratedIdException {
-		task.setUser(userService.getUserWithUsername((String)session.getAttribute("user")));
+	protected String addTask(@ModelAttribute("task") Task task,
+			BindingResult result, HttpSession session,
+			HttpServletRequest request) {
+	task.setUser(userService.getUserWithUsername((String)session.getAttribute("user")));
 		String parentTaskId = request.getParameter("parentTaskId");
 		if (taskService.getTaskWithId(task.getGeneratedId()) != null) {
 			Task originalTask = taskService.getTaskWithId(task.getGeneratedId());

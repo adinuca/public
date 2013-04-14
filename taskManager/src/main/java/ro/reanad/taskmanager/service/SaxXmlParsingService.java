@@ -25,52 +25,29 @@ import ro.reanad.taskmanager.model.Task;
 public class SaxXmlParsingService extends DefaultHandler implements
 		XmlParsingService {
 
+	private static final String SCHEMA_PATH = "/WEB-INF/classes/schema.xsd";
+	private static final String HTTP_WWW_W3_ORG_2001_XML_SCHEMA= "http://www.w3.org/2001/XMLSchema";
 	List<Task> tasks = null;
 	private Task currentTask = null;
 	private String tmpValue;
 
-	public boolean validate(File file, String servletContextPath) {
-		try {
-			// define the type of schema - we use W3C:
-			String schemaLang = "http://www.w3.org/2001/XMLSchema";
-
-			// get validation driver:
-			SchemaFactory factory = SchemaFactory.newInstance(schemaLang);
-
-			// create schema by reading it from an XSD file:
-			Schema schema = factory.newSchema(new StreamSource(
-					servletContextPath + "/WEB-INF/classes/schema.xsd"));
-			Validator validator = schema.newValidator();
-
-			// at last perform validation:
-			validator.validate(new StreamSource(file));
-			return true;
-		} catch (SAXException ex) {
-			ex.printStackTrace();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return false;
+	public void validate(File file, String servletContextPath) throws SAXException, IOException {
+		SchemaFactory factory = SchemaFactory.newInstance(HTTP_WWW_W3_ORG_2001_XML_SCHEMA);
+		Schema schema = factory.newSchema(new StreamSource(servletContextPath
+				+ SCHEMA_PATH));
+		Validator validator = schema.newValidator();
+		validator.validate(new StreamSource(file));
 	}
 
 	@Override
-	public List<Task> parseXml(File file, String servletContextPath) {
-		if (validate(file, servletContextPath)) {
-			tasks = new ArrayList<Task>();
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			try {
-				SAXParser parser = factory.newSAXParser();
-				parser.parse(file, this);
-			} catch (ParserConfigurationException e) {
-				System.out.println("ParserConfig error");
-			} catch (SAXException e) {
-				System.out.println("SAXException : xml not well formed");
-			} catch (IOException e) {
-				System.out.println("IO error");
-			}
-			return tasks;
-		}
-		return null;
+	public List<Task> parseXml(File file, String servletContextPath)
+			throws ParserConfigurationException, SAXException, IOException {
+		validate(file, servletContextPath);
+		tasks = new ArrayList<Task>();
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		SAXParser parser = factory.newSAXParser();
+		parser.parse(file, this);
+		return tasks;
 	}
 
 	@Override

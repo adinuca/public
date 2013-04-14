@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ro.reanad.taskmanager.dao.TaskDao;
-import ro.reanad.taskmanager.dao.exception.DuplicateGeneratedIdException;
 import ro.reanad.taskmanager.model.Task;
 
 @Service
@@ -26,35 +25,15 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void addSubtask(String parentTaskId, Task task) throws DuplicateGeneratedIdException {
+	public void addSubtask(String parentTaskId, Task task){
 		Task parentTask = taskDao.getTask(parentTaskId);
 		task.setParentTask(parentTask);
 		taskDao.createTask(task);
 	}
 
 	private void addTask(Task task) {
-		boolean taskAdded = false;
-		while (!taskAdded) {
-			try {
-				taskDao.createTask(task);
-				taskAdded = true;
-				logger.debug("Subtask was added "+task.toString() );
-				
-			} catch (DuplicateGeneratedIdException ex) {
-				logger.debug("Generated task id is already in db. Trying again.s "+task.toString() );
-				mapTaskToNewId(task);
-			}
-		}
-	}
-
-	private void mapTaskToNewId(Task task) {
-		Task newTask = new Task(task.getName(), task.getUser());
-		newTask.setCategory(task.getCategory());
-		newTask.setDescription(task.getDescription());
-		newTask.setDueDate(task.getDueDate());
-		newTask.setStatus(task.getStatus());
-		newTask.setTimeSpent(task.getTimeSpent());
-		newTask.setUrl(task.getUrl());
+		taskDao.createTask(task);
+		logger.debug("Subtask was added " + task.toString());
 	}
 
 	@Override
