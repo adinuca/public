@@ -75,7 +75,7 @@ public class Task implements Serializable {
 		id = (int) (Math.round(Math.random() * 1000));
 		this.name = "";
 		this.generatedId = "Task" + id;
-		this.status = "To do";
+		this.status = "todo";
 		subTasks = new ArrayList<Task>();
 		this.dueDate = new Date();
 		this.parentTask=null;
@@ -140,7 +140,7 @@ public class Task implements Serializable {
 		return subTasks;
 	}
 
-	protected void setSubTasks(List<Task> subTasks) {
+	public void setSubTasks(List<Task> subTasks) {
 		this.subTasks = subTasks;
 	}
 

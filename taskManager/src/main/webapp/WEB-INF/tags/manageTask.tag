@@ -47,7 +47,7 @@
 					<c:if test="${not empty task.status}">
 						<option selected=${task.status}>${task.status}</option>
 					</c:if>
-
+					<option value="todo">To do</option>
 					<option value="defined">Defined</option>
 					<option value="inProgress">In progress</option>
 					<option value="completed">Completed</option>

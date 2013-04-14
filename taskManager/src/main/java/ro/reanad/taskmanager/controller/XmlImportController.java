@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -76,7 +74,7 @@ public class XmlImportController implements HandlerExceptionResolver {
 			}
 			saveFile(form);
 			xml.delete();
-			return "WEB-INF/jsp/success.jsp";
+			return "/board.htm";
 		} else {
 			return "/upload.htm";
 		}
@@ -85,12 +83,13 @@ public class XmlImportController implements HandlerExceptionResolver {
 	private void saveTasks(List<Task> tasks, User user) {
 		for(Task t:tasks){
 			t.setUser(user);
+			List<Task> subtasks= t.getSubTasks();
 			try {
 				taskService.createTask(t);
 			} catch (DuplicateGeneratedIdException e) {
 				e.printStackTrace();
 			}
-			if(t.getSubTasks().size()!=0){
+			if(subtasks.size()!=0){
 				saveTasks(t.getSubTasks(), user);
 			}
 		}
@@ -126,6 +125,6 @@ public class XmlImportController implements HandlerExceptionResolver {
 			model.put("errors", "Unexpected error: " + exception.getMessage());
 		}
 		model.put("FORM", new UploadForm());
-		return new ModelAndView("board.htm", (Map) model);
+		return new ModelAndView("upload.htm", (Map) model);
 	}
 }

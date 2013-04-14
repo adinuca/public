@@ -20,6 +20,8 @@
 	<xs:element name="status">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
+			
+				<xs:enumeration value="todo" />
 				<xs:enumeration value="defined" />
 				<xs:enumeration value="inProgress" />
 				<xs:enumeration value="completed" />
@@ -36,8 +38,8 @@
 				<xs:element ref="description" />
 				<xs:element ref="category" />
 				<xs:element ref="dueDate" />
-				<xs:element ref="status" />
 				<xs:element ref="timeSpent" />
+				<xs:element ref="status" />
 				<xs:element ref="task" maxOccurs="unbounded" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>

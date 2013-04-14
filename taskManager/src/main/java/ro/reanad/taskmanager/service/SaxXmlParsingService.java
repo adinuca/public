@@ -25,6 +25,7 @@ import ro.reanad.taskmanager.model.Task;
 public class SaxXmlParsingService extends DefaultHandler implements
 		XmlParsingService {
 
+	List<Task> tasks = null;
 	private Task currentTask = null;
 	private String tmpValue;
 
@@ -37,7 +38,8 @@ public class SaxXmlParsingService extends DefaultHandler implements
 			SchemaFactory factory = SchemaFactory.newInstance(schemaLang);
 
 			// create schema by reading it from an XSD file:
-			Schema schema = factory.newSchema(new StreamSource(servletContextPath+"/WEB-INF/classes/schema.xsd"));
+			Schema schema = factory.newSchema(new StreamSource(
+					servletContextPath + "/WEB-INF/classes/schema.xsd"));
 			Validator validator = schema.newValidator();
 
 			// at last perform validation:
@@ -53,8 +55,8 @@ public class SaxXmlParsingService extends DefaultHandler implements
 
 	@Override
 	public List<Task> parseXml(File file, String servletContextPath) {
-		if (validate(file,servletContextPath)) {
-			List<Task> tasks = new ArrayList<Task>();
+		if (validate(file, servletContextPath)) {
+			tasks = new ArrayList<Task>();
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			try {
 				SAXParser parser = factory.newSAXParser();
@@ -77,7 +79,6 @@ public class SaxXmlParsingService extends DefaultHandler implements
 		if (elementName.equalsIgnoreCase("task")) {
 			createTask();
 		}
-
 	}
 
 	@Override
@@ -124,9 +125,14 @@ public class SaxXmlParsingService extends DefaultHandler implements
 	}
 
 	private void goBackToParentTask() throws WrongSubtaskException {
-		Task newTask = currentTask;
-		currentTask = newTask.getParentTask();
-		currentTask.addSubTasks(newTask);
+		if (currentTask.getParentTask() == null) {
+			tasks.add(currentTask);
+			currentTask = null;
+		} else {
+			Task newTask = currentTask;
+			currentTask = newTask.getParentTask();
+			currentTask.addSubTasks(newTask);
+		}
 	}
 
 	private void createTask() {
@@ -134,8 +140,8 @@ public class SaxXmlParsingService extends DefaultHandler implements
 			Task newTask = currentTask;
 			currentTask = new Task();
 			currentTask.setParentTask(newTask);
-		}else
-			currentTask= new Task();
+		} else
+			currentTask = new Task();
 	}
 
 }
