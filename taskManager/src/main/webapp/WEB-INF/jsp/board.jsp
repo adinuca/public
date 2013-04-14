@@ -51,6 +51,7 @@
 					<li><a href="tasksDisplay.htm?category=personal">Personal</a></li>
 					<li><a href="tasksDisplay.htm?category=work">Work</a></li>
 					<li><a href="tasksDisplay.htm?category=goals">Goals</a></li>
+					<li><a href="upload.htm">Upload tasks xml</a></li>
 
 				</ul>
 			</div>

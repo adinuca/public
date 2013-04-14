@@ -1,36 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.reanad.ro/schema.xsd" xmlns="http://www.reanad.ro/schema.xsd"
-	xmlns:tns="http://www.reanad.ro/schema" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-	<xs:element name="task" type="taskType"></xs:element>
+	<!-- definition of simple elements -->
+	<xs:element name="generatedId" type="xs:string" />
+	<xs:element name="name" type="xs:string" />
+	<xs:element name="description" type="xs:string" />
+	<xs:element name="category">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Work" />
+				<xs:enumeration value="Study" />
+				<xs:enumeration value="Home" />
+				<xs:enumeration value="PersonalImprovement" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="dueDate" type="xs:date" />
+	<xs:element name="timeSpent" type="xs:integer" />
+	<xs:element name="status">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="defined" />
+				<xs:enumeration value="inProgress" />
+				<xs:enumeration value="completed" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 
-	<xs:complexType name="taskType">
-		<xs:sequence >
-			<xs:element name="generatedId" type="xs:string" />
-			<xs:element name="name" type="xs:string" />
-			<xs:element name="description" type="xs:string" />
-			<xs:element name="category">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="Audi" />
-						<xs:enumeration value="Golf" />
-						<xs:enumeration value="BMW" />
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-			<xs:element name="dueDate" type="xs:date" />
-			<xs:element name="timeSpent" type="xs:integer" />
-			<xs:element name="status">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="Audi" />
-						<xs:enumeration value="Golf" />
-						<xs:enumeration value="BMW" />
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-			<xs:element name="task" type="taskType" minOccurs="0" maxOccurs="unbounded" />
-		</xs:sequence>
-	</xs:complexType>
+	<!-- definition of complex elements -->
+	<xs:element name="task">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="generatedId" />
+				<xs:element ref="name" />
+				<xs:element ref="description" />
+				<xs:element ref="category" />
+				<xs:element ref="dueDate" />
+				<xs:element ref="status" />
+				<xs:element ref="timeSpent" />
+				<xs:element ref="task" maxOccurs="unbounded" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="tasks" >
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="task" minOccurs="1" maxOccurs="unbounded">
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 </xs:schema>

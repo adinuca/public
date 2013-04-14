@@ -1,6 +1,7 @@
 package ro.reanad.taskmanager.service;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +22,8 @@ import ro.reanad.taskmanager.model.Task;
 
 @Service
 public class ConstructXmlService {
-	public ConstructXmlService() {
-    }
-
+	 SimpleDateFormat ft = 
+		      new SimpleDateFormat ("yyyy-MM-dd");
     private static final String TASKS_XML = "tasks.xml";
 	private static final String STATUS = "status";
 	private static final String TIME_SPENT = "timeSpent";
@@ -75,8 +75,7 @@ public class ConstructXmlService {
 				task.getDescription()));
 		taskElement.appendChild(constructStringElement(CATEGORY,
 				task.getCategory()));
-		taskElement.appendChild(constructDateElement(DUE_DATE,
-				task.getDueDate()));
+		taskElement.appendChild(constructDateElement(DUE_DATE,task.getDueDate()));
 		taskElement.appendChild(constructIntElement(TIME_SPENT,
 				task.getTimeSpent()));
 		taskElement.appendChild(constructStringElement(STATUS,
@@ -97,7 +96,7 @@ public class ConstructXmlService {
 
 	private Element constructDateElement(String name, Date value) {
 		Element dateElement = doc.createElement(name);
-		dateElement.setTextContent(value.toString());
+		dateElement.setTextContent(ft.format(value).toString());
 		return dateElement;
 	}
 

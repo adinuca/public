@@ -6,5 +6,5 @@ import java.util.List;
 import ro.reanad.taskmanager.model.Task;
 
 public interface XmlParsingService {
-	List<Task> parseXml(File f);
+	List<Task> parseXml(File f, String string);
 }
