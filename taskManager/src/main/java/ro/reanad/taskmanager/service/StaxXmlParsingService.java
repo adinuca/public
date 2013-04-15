@@ -8,7 +8,7 @@ import ro.reanad.taskmanager.model.Task;
 public class StaxXmlParsingService implements XmlParsingService {
 
 	@Override
-	public List<Task> parseXml(File f) {
+	public List<Task> parseXml(File f, String servletContextPath) {
 		// TODO Auto-generated method stub
 		return null;
 	}
