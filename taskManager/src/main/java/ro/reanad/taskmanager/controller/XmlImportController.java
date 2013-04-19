@@ -1,9 +1,13 @@
 package ro.reanad.taskmanager.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +30,8 @@ public class XmlImportController{
 	private static final String ERROR_MESSAGE = "errorMessage";
 	private static final String REDIRECT_ERROR_PAGE = "redirect:errorPage.htm";
 	private static final String SUCCESS_JSP = "WEB-INF/jsp/success.jsp";
+	private Logger logger = Logger.getLogger(XmlImportController.class);
+	  
 	private static final String USER = "user";
 	@Autowired
 	private XmlImportService xmlImportService;
@@ -55,38 +61,31 @@ public class XmlImportController{
 			BindingResult result, HttpSession session) {
 
 		if (!result.hasErrors()) {
-			File xml = saveFile(form);
-			User user = userService.getUserWithUsername((String) session
-					.getAttribute(USER));
-			String contextPath = session.getServletContext().getRealPath("/");
-			try {
-				xmlImportService.saveXmlContentInDatabase(xml, user,
-						contextPath);
-				return new ModelAndView(SUCCESS_JSP);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ModelAndView(REDIRECT_ERROR_PAGE,
-						ERROR_MESSAGE, e);
-			} finally {
-				xml.delete();
-			}
+            File xml = null;
+            try {
+                xml = saveFile(form);
+                User user = userService.getUserWithUsername((String) session.getAttribute(USER));
+                String contextPath = session.getServletContext().getRealPath("/");
+                xmlImportService.saveXmlContentInDatabase(xml, user, contextPath);
+                return new ModelAndView(SUCCESS_JSP);
+            } catch (Exception e) {
+                logger.error(e.getStackTrace());
+                return new ModelAndView(REDIRECT_ERROR_PAGE, ERROR_MESSAGE, e);
+            } finally {
+                xml.delete();
+            }
 		}
 		return new ModelAndView(BOARD_HTM);
 	}
 
-	private File saveFile(UploadForm form) {
+	private File saveFile(UploadForm form) throws IOException {
 		FileOutputStream outputStream = null;
 		String filePath = System.getProperty("java.io.tmpdir") + "/"
 				+ form.getFile().getOriginalFilename();
-		File xml = new File(filePath);
-		try {
-			outputStream = new FileOutputStream(xml);
-			outputStream.write(form.getFile().getFileItem().get());
-			outputStream.close();
-		} catch (Exception e) {
-			System.out.println("Error while saving file");
-			return null;
-		}
+        File xml = new File(filePath);
+        outputStream = new FileOutputStream(xml);
+        outputStream.write(form.getFile().getFileItem().get());
+        outputStream.close();
 		return xml;
 	}
 }
