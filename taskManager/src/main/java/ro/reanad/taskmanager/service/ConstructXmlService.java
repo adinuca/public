@@ -34,18 +34,16 @@ public class ConstructXmlService {
 	private static final String GENERATED_ID = "generatedId";
 	private static final String TASK = "task";
     private static final String TASKS = "tasks";
-	private DocumentBuilderFactory docFactory;
-	private DocumentBuilder docBuilder;
-	private Document doc;
+	
 
 	public File getXml(List<Task> tasks) throws ParserConfigurationException,
 			TransformerException {
-		initializeData();
-		constructXml(tasks);
-		return writeToFile();
+	    Document doc = initializeData();
+		constructXml(tasks,doc);
+		return writeToFile(doc);
 	}
 
-	private File writeToFile() throws TransformerException {
+	private File writeToFile( Document doc) throws TransformerException {
 		File file = new File(TASKS_XML);
 		TransformerFactory transformerFactory = TransformerFactory
 				.newInstance();
@@ -58,58 +56,58 @@ public class ConstructXmlService {
 		return file;
 	}
 
-	private void constructXml(List<Task> tasks) {
+	private void constructXml(List<Task> tasks, Document doc) {
 	    Element taskElement = doc.createElement(TASKS);
 	    for (Task task : tasks) {
-			taskElement.appendChild(constructTaskElement(task));
+			taskElement.appendChild(constructTaskElement(task,doc));
 		}
 	    doc.appendChild(taskElement);
 	}
 
-	private Element constructTaskElement(Task task) {
+	private Element constructTaskElement(Task task, Document doc) {
 		Element taskElement = doc.createElement(TASK);
 		taskElement.appendChild(constructStringElement(GENERATED_ID,
-				task.getGeneratedId()));
-		taskElement.appendChild(constructStringElement(NAME, task.getName()));
+				task.getGeneratedId(), doc));
+		taskElement.appendChild(constructStringElement(NAME, task.getName(), doc));
 		taskElement.appendChild(constructStringElement(DESCRIPTION,
-				task.getDescription()));
+				task.getDescription(), doc));
 		taskElement.appendChild(constructStringElement(CATEGORY,
-				task.getCategory()));
-		taskElement.appendChild(constructDateElement(DUE_DATE,task.getDueDate()));
+				task.getCategory(), doc));
+		taskElement.appendChild(constructDateElement(DUE_DATE,task.getDueDate(), doc));
 		taskElement.appendChild(constructIntElement(TIME_SPENT,
-				task.getTimeSpent()));
+				task.getTimeSpent(), doc));
 		taskElement.appendChild(constructStringElement(STATUS,
-				task.getStatus()));
+				task.getStatus(), doc));
 		if (task.getSubTasks().size() != 0) {
 			for (Task t : task.getSubTasks()) {
-				taskElement.appendChild(constructTaskElement(t));
+				taskElement.appendChild(constructTaskElement(t,doc));
 			}
 		}
 		return taskElement;
 	}
 
-	private Element constructStringElement(String name, String value) {
+	private Element constructStringElement(String name, String value, Document doc) {
 		Element stringElement = doc.createElement(name);
 		stringElement.setTextContent(value);
 		return stringElement;
 	}
 
-	private Element constructDateElement(String name, Date value) {
+	private Element constructDateElement(String name, Date value, Document doc) {
 		Element dateElement = doc.createElement(name);
 		dateElement.setTextContent(ft.format(value).toString());
 		return dateElement;
 	}
 
-	private Element constructIntElement(String name, Integer value) {
+	private Element constructIntElement(String name, Integer value, Document doc) {
 		Element integerElement = doc.createElement(name);
 		integerElement.setTextContent(value.toString());
 		return integerElement;
 	}
 
-	private void initializeData() throws ParserConfigurationException {
-		docFactory = DocumentBuilderFactory.newInstance();
-		docBuilder = docFactory.newDocumentBuilder();
-		doc = docBuilder.newDocument();
+	private Document initializeData() throws ParserConfigurationException {
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+		return docBuilder.newDocument();
 	}
 
 }
