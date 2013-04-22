@@ -22,48 +22,48 @@ public class SaxDefaultHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localame, String elementName, Attributes attributes) throws SAXException {
         if (elementName.equalsIgnoreCase("task")) {
             createTask();
         }
     }
 
     @Override
-    public void characters(char[] ac, int i, int j) throws SAXException {
-        tmpValue = new String(ac, i, j);
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        tmpValue = new String(ch, start, length);
     }
 
     @Override
-    public void endElement(String s, String s1, String element) throws SAXException {
+    public void endElement(String uri, String localName, String element) throws SAXException {
         if (element.equals("task")) {
             try {
                 goBackToParentTask();
             } catch (WrongSubtaskException e) {
                 logger.error(e.getStackTrace());
             }
-        }
+        }else
         if (element.equalsIgnoreCase("generatedId")) {
             currentTask.setGeneratedId(tmpValue);
-        }
+        }else
         if (element.equalsIgnoreCase("name")) {
             currentTask.setName(tmpValue);
-        }
+        }else
         if (element.equalsIgnoreCase("description")) {
             currentTask.setDescription(tmpValue);
-        }
+        }else
         if (element.equalsIgnoreCase("category")) {
             currentTask.setCategory(tmpValue);
-        }
+        }else
         /*
          * if (elementName.equalsIgnoreCase("dueDate")) {
          * currentTask.setDueDate(Calendar.getInstance().
          * attributes.getValue("dueDate")); }
          */if (element.equalsIgnoreCase("timeSpent")) {
             currentTask.setTimeSpent(Integer.parseInt(tmpValue));
-        }
+        }else
         if (element.equalsIgnoreCase("url")) {
             currentTask.setUrl(tmpValue);
-        }
+        }else
         if (element.equalsIgnoreCase("status")) {
             currentTask.setStatus(tmpValue);
         }
