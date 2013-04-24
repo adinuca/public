@@ -1,15 +1,15 @@
-package ro.reanad.taskmanager.dao;
+package ro.reanad.taskmanager.xmlparsing;
 
 import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class UserDaoImplTest {
+public class XmlValidatorTest {
 
 	@Test
 	@Ignore
-	public void test() {
+	public void testValidate() {
 		fail("Not yet implemented");
 	}
 

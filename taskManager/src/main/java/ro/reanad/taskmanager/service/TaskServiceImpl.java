@@ -49,24 +49,21 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> getAllTasksForUser(String username) {
-		List<Task> tasks = taskDao.getTasksForUsername(username);
-		return tasks;
+		return taskDao.getTasksForUsername(username);
 	}
 
 	@Override
 	public List<Task> getAllTasksWithStatusForUser(String username,
 			String status) {
-		List<Task> tasks = taskDao.getTasksWithStatusForUsername(username,
+		return taskDao.getTasksWithStatusForUsername(username,
 				status);
-		return tasks;
 	}
 
 	@Override
 	public List<Task> getAllTasksFromCategoryForUser(String username,
 			String category) {
-		List<Task> tasks = taskDao.getTasksWithCategoryForUsername(username,
+		return taskDao.getTasksWithCategoryForUsername(username,
 				category);
-		return tasks;
 	}
 
 	@Override

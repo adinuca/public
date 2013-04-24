@@ -114,7 +114,6 @@ public class TaskTest {
 
 	@Test
 	public void testGetAndSetStatus() {
-		assertTrue(task.getStatus().equals("To do"));
 		task.setStatus("Defined");
 		assertTrue(task.getStatus().equals("Defined"));
 		

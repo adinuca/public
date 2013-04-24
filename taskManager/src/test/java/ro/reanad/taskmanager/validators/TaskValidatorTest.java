@@ -1,16 +1,17 @@
-package ro.reanad.taskmanager.controller;
+package ro.reanad.taskmanager.validators;
 
 import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class LoginControllerTest {
+
+public class TaskValidatorTest {
 
 	@Test
 	@Ignore
 	public void test() {
-		assertTrue("Not yet implemented",true);
+		fail("Not yet implemented");
 	}
 
 }

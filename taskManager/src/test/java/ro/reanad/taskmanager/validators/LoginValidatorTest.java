@@ -1,15 +1,15 @@
-package ro.reanad.taskmanager.dao;
+package ro.reanad.taskmanager.validators;
 
 import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class UserDaoImplTest {
+public class LoginValidatorTest {
 
 	@Test
 	@Ignore
-	public void test() {
+	public void testValidate() {
 		fail("Not yet implemented");
 	}
 

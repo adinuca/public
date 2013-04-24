@@ -13,9 +13,9 @@ import ro.reanad.taskmanager.model.Task;
 public class SaxDefaultHandler extends DefaultHandler {
     private Logger logger = Logger.getLogger(SaxDefaultHandler.class);
     
-    List<Task> tasks = null;
-    private Task currentTask = null;
-    private String tmpValue;
+    protected List<Task> tasks = null;
+    protected Task currentTask = null;
+    protected String tmpValue;
 
     public SaxDefaultHandler(List<Task> tasks) {
         this.tasks=tasks;
