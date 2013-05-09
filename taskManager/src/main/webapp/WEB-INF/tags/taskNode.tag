@@ -19,9 +19,9 @@
 			value="Add subtask" /> <input class="taskFormButtons " type=submit
 			name=submit value="Edit" /> <input class="taskFormButtons "
 			type=submit name=submit value="Remove" />
-	</form> <c:if test="${fn:length(task.subTasks)>0}">
+	</form> <c:if test="${fn:length(task.task)>0}">
 		<ul>
-			<c:forEach var="subtask" items="${task.subTasks}">
+			<c:forEach var="subtask" items="${task.task}">
 				<template:taskNode task="${subtask}">
 				</template:taskNode>
 			</c:forEach>

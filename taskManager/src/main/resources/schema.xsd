@@ -20,7 +20,7 @@
 	<xs:element name="status">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
-			
+
 				<xs:enumeration value="todo" />
 				<xs:enumeration value="defined" />
 				<xs:enumeration value="inProgress" />
@@ -40,12 +40,13 @@
 				<xs:element ref="dueDate" />
 				<xs:element ref="timeSpent" />
 				<xs:element ref="status" />
+				<xs:element ref="url" />
 				<xs:element ref="task" maxOccurs="unbounded" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-
-	<xs:element name="tasks" >
+	<xs:element name="url" type="xs:string" />
+	<xs:element name="tasks">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="task" minOccurs="1" maxOccurs="unbounded">

@@ -18,20 +18,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import ro.reanad.taskmanager.service.ConstructXmlService;
+import ro.reanad.taskmanager.service.JaxbService;
 import ro.reanad.taskmanager.service.TaskService;
 
 @Controller
 @SessionAttributes("user")
 public class XmlController {
-	private ConstructXmlService constructXmlService;
+	//private ConstructXmlService constructXmlService;
+	private JaxbService jaxbService;
 	private TaskService taskService;
 
-	@Autowired
+	/*@Autowired
 	public void setConstructXmlService(ConstructXmlService constructXmlService) {
 		this.constructXmlService = constructXmlService;
 	}
-
+*/
+	@Autowired
+	public void setJaxbService(JaxbService jaxbService) {
+		this.jaxbService = jaxbService;
+	}
+	
 	@Autowired
 	public void setTaskService(TaskService taskService) {
 		this.taskService = taskService;
@@ -44,7 +50,7 @@ public class XmlController {
 		BufferedInputStream buf = null;
 		try {
 			stream = response.getOutputStream();
-			File xml = constructXmlService.getXml(taskService
+			File xml = jaxbService.getXml(taskService
 					.getAllTasksForUser((String) request.getSession()
 							.getAttribute("user")));
 			response.setContentType("text/xml");

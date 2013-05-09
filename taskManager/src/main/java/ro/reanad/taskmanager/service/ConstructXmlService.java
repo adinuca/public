@@ -78,8 +78,8 @@ public class ConstructXmlService {
 				task.getTimeSpent(), doc));
 		taskElement.appendChild(constructStringElement(STATUS,
 				task.getStatus(), doc));
-		if (task.getSubTasks().size() != 0) {
-			for (Task t : task.getSubTasks()) {
+		if (task.getTask().size() != 0) {
+			for (Task t : task.getTask()) {
 				taskElement.appendChild(constructTaskElement(t,doc));
 			}
 		}

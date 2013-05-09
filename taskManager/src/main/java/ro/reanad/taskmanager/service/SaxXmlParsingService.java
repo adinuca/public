@@ -8,14 +8,12 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
 import ro.reanad.taskmanager.model.Task;
 import ro.reanad.taskmanager.xmlparsing.SaxDefaultHandler;
 import ro.reanad.taskmanager.xmlparsing.XmlValidator;
 
-@Service
 public class SaxXmlParsingService implements XmlParsingService {
 
 	@Override

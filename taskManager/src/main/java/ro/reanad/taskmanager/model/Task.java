@@ -1,6 +1,7 @@
 package ro.reanad.taskmanager.model;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +18,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlAccessType;
 
 import ro.reanad.taskmanager.dao.exception.WrongSubtaskException;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = { "generatedId", "name", "description",
+		"category", "dueDate", "timeSpent", "status", "url", "task" })
+@XmlRootElement(name = "task")
 @Entity
 @Table(name = "task")
 public class Task implements Serializable {
@@ -31,44 +43,60 @@ public class Task implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@XmlTransient
 	private int idTask;
 
+	@XmlTransient
 	private static int id = 0;
 
 	@Column(unique = true)
 	@NotNull
+	@XmlElement(required = true)
 	private String generatedId;
 
 	@Column
 	@NotNull
+	@XmlElement(required = true)
 	private String name;
 	@Column
+	@XmlElement(required = true)
 	private String description;
 
 	@Column
+	@XmlElement(required = true)
 	private String category;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "parentTaskId", insertable = true, updatable = true)
+	@XmlTransient
 	private Task parentTask;
 
 	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "parentTask", fetch = FetchType.EAGER)
-	private List<Task> subTasks;
+	@XmlElement
+	private List<Task> task;
+
 	@Column
+	@XmlElement(required = true)
+	@XmlSchemaType(name = "date")
 	private Date dueDate;
 
 	@Column
+	@XmlElement(required = true)
 	private int timeSpent;
+	
 	@Column
+	@XmlElement(required = true)
 	private String url;
 
 	@ManyToOne(cascade = {})
 	@JoinColumn(name = "idUser")
 	@NotNull
+	@XmlTransient
 	private User user;
 	// private List<String> comments;
 
 	@Column
+	@XmlElement(required = true)
 	private String status;
 
 	public Task() {
@@ -76,9 +104,9 @@ public class Task implements Serializable {
 		this.name = "";
 		this.generatedId = "Task" + id;
 		this.status = "todo";
-		subTasks = new ArrayList<Task>();
+		task = new ArrayList<Task>();
 		this.dueDate = new Date();
-		this.parentTask=null;
+		this.parentTask = null;
 	}
 
 	public Task(User user) {
@@ -136,17 +164,17 @@ public class Task implements Serializable {
 		this.parentTask = parentTask;
 	}
 
-	public List<Task> getSubTasks() {
-		return subTasks;
+	public List<Task> getTask() {
+		return task;
 	}
 
-	public void setSubTasks(List<Task> subTasks) {
-		this.subTasks = subTasks;
+	public void setTask(List<Task> subTasks) {
+		this.task = subTasks;
 	}
 
 	public void addSubTasks(Task subTask) throws WrongSubtaskException {
 		if (subTask != null) {
-				subTasks.add(subTask);
+			task.add(subTask);
 		} else
 			throw new WrongSubtaskException("Subtask cannot be null");
 	}
@@ -194,7 +222,7 @@ public class Task implements Serializable {
 	public void generateNewId() {
 		id = (int) (Math.round(Math.random() * 1000));
 		this.generatedId = "Task" + id;
-		
+
 	}
 
 }

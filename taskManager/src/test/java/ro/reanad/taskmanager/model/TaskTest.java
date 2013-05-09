@@ -62,19 +62,19 @@ public class TaskTest {
 	}
 
 	@Test
-	public void testGetSubTasks() throws WrongSubtaskException {
+	public void testgetTask() throws WrongSubtaskException {
 		Task task1 = new Task("task1", u);
 		Task task2 = new Task("task2", u);
-		assertTrue(task.getSubTasks().size() == 0);
+		assertTrue(task.getTask().size() == 0);
 
 		task.addSubTasks(task1);
-		assertTrue(task.getSubTasks().size() == 1);
-		assertTrue(task.getSubTasks().contains(task1));
+		assertTrue(task.getTask().size() == 1);
+		assertTrue(task.getTask().contains(task1));
 
 		task.addSubTasks(task2);
-		assertTrue(task.getSubTasks().size() == 2);
-		assertTrue(task.getSubTasks().contains(task1));
-		assertTrue(task.getSubTasks().contains(task2));
+		assertTrue(task.getTask().size() == 2);
+		assertTrue(task.getTask().contains(task1));
+		assertTrue(task.getTask().contains(task2));
 
 	}
 

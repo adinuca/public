@@ -41,10 +41,10 @@ public class XmlImportService {
 	private void saveTasks(List<Task> tasks, User user) {
 		for (Task t : tasks) {
 			t.setUser(user);
-			List<Task> subtasks = t.getSubTasks();
+			List<Task> subtasks = t.getTask();
 			taskService.createTask(t);
 			if (subtasks.size() != 0) {
-				saveTasks(t.getSubTasks(), user);
+				saveTasks(t.getTask(), user);
 			}
 		}
 	}
