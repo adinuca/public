@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -72,8 +73,8 @@ public class Task implements Serializable {
 	private Task parentTask;
 
 	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "parentTask", fetch = FetchType.EAGER)
-	@XmlElement
-	private List<Task> task;
+	@XmlElement(name="task")
+	private List<Task> task= new ArrayList<Task>();
 
 	@Column
 	@XmlElement(required = true)

@@ -33,18 +33,19 @@ public class XmlImportService {
 			List<Task> tasks = xmlParsingService.parseXml(xml,
 					servletContextPath);
 			if (tasks != null) {
-				saveTasks(tasks, user);
+				saveTasks(tasks, user, null);
 			}
 		}
 	}
 
-	private void saveTasks(List<Task> tasks, User user) {
+	private void saveTasks(List<Task> tasks, User user, Task parentTask) {
 		for (Task t : tasks) {
 			t.setUser(user);
 			List<Task> subtasks = t.getTask();
+			t.setParentTask(parentTask);
 			taskService.createTask(t);
 			if (subtasks.size() != 0) {
-				saveTasks(t.getTask(), user);
+				saveTasks(t.getTask(), user, t);
 			}
 		}
 	}
