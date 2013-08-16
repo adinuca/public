@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ro.reanad.taskmanager.model.Task;
-import ro.reanad.taskmanager.model.User;
-import ro.reanad.taskmanager.service.UserService;
 import ro.reanad.taskmanager.service.TaskService;
 
 /**

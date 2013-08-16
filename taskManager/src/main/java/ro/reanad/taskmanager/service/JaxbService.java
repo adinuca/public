@@ -10,7 +10,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -21,7 +22,7 @@ import ro.reanad.taskmanager.xmlparsing.XmlValidator;
 @Service
 public class JaxbService implements XmlParsingService {
 
-	Logger logger = Logger.getLogger(JaxbService.class);
+	Logger logger = LogManager.getLogger(JaxbService.class);
 
 	@Override
 	public List<Task> parseXml(File file, String servletContextPath)
@@ -33,8 +34,6 @@ public class JaxbService implements XmlParsingService {
 			// create JAXB context and initializing Marshaller
 			JAXBContext jaxbContext = JAXBContext.newInstance(Tasks.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			// specify the location and name of xml file to be read
-			// this will create Java object - country from the XML file
 
 			Tasks tasks = (Tasks) jaxbUnmarshaller.unmarshal(file);
 

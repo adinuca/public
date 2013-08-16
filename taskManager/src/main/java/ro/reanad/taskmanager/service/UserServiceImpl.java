@@ -1,6 +1,7 @@
 package ro.reanad.taskmanager.service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import ro.reanad.taskmanager.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
-	private Logger logger = Logger.getLogger(UserServiceImpl.class);
+	private Logger logger = LogManager.getLogger(UserServiceImpl.class);
 	
 	@Autowired
 	private UserDao userDao;

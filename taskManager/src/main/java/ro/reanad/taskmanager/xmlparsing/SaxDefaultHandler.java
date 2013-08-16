@@ -2,7 +2,8 @@ package ro.reanad.taskmanager.xmlparsing;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,7 +12,7 @@ import ro.reanad.taskmanager.dao.exception.WrongSubtaskException;
 import ro.reanad.taskmanager.model.Task;
 
 public class SaxDefaultHandler extends DefaultHandler {
-    private Logger logger = Logger.getLogger(SaxDefaultHandler.class);
+    private Logger logger = LogManager.getLogger(SaxDefaultHandler.class);
     
     protected List<Task> tasks = null;
     protected Task currentTask = null;

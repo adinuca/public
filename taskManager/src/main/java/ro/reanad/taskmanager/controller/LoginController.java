@@ -4,7 +4,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ro.reanad.taskmanager.model.User;
 import ro.reanad.taskmanager.service.UserService;
-import ro.reanad.taskmanager.validators.LoginValidator;
 
 /**
  * Controller handles the request and returnes the ModelAndView
@@ -26,7 +26,8 @@ import ro.reanad.taskmanager.validators.LoginValidator;
 @Controller
 @RequestMapping("/login.htm")
 public class LoginController {
-	Logger logger = Logger.getLogger(LoginController.class);
+	Logger logger = LogManager.getLogger("LoginController");
+	
 	@Autowired
 	private UserService userService;
 
@@ -37,7 +38,6 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	protected ModelAndView login(@ModelAttribute("user") User user, BindingResult result, HttpSession session, HttpServletResponse response) {
 		try {
-			new LoginValidator().validate(user, result);
 			if (result.hasErrors()) {
 				return new ModelAndView("index.jsp");
 			}
@@ -62,7 +62,5 @@ public class LoginController {
 					e.getMessage());
 
 		}
-
 	}
-
 }

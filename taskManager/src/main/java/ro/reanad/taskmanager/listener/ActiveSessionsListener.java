@@ -5,10 +5,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class ActiveSessionsListener implements HttpSessionListener {
-	Logger logger = Logger.getLogger(ActiveSessionsListener.class);
+	Logger logger = LogManager.getLogger(ActiveSessionsListener.class);
 	private AtomicInteger sessionCount = new AtomicInteger(0);
 
 	public void sessionCreated(HttpSessionEvent event) {

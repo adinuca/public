@@ -5,7 +5,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/taskmanager" />
+		<property name="url" value="jdbc:mysql://46.102.233.139:3306/taskmanager" />
 		<property name="username" value="taskmanager" />
 		<property name="password" value="taskmanager" />
 	</bean>

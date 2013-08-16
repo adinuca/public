@@ -1,6 +1,7 @@
 package ro.reanad.taskmanager.controller;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,7 +17,7 @@ import ro.reanad.taskmanager.validators.LoginValidator;
 @Controller
 @RequestMapping("/register.htm")
 public class RegisterController {
-    private Logger logger = Logger.getLogger(RegisterController.class);
+    private Logger logger = LogManager.getLogger(RegisterController.class);
 	@Autowired
 	private UserService loginService;
 
