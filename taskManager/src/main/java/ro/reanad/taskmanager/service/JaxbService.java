@@ -21,50 +21,48 @@ import ro.reanad.taskmanager.xmlparsing.XmlValidator;
 @Service
 public class JaxbService implements XmlParsingService {
 
-	Logger logger = Logger.getLogger(JaxbService.class);
+    Logger logger = Logger.getLogger(JaxbService.class);
+    private XmlValidator validator;
+    private JAXBContext jaxbContext ;
+    private Unmarshaller jaxbUnmarshaller;
+    private Marshaller jaxbMarshaller;
 
-	@Override
-	public List<Task> parseXml(File file, String servletContextPath)
-			throws ParserConfigurationException, SAXException, IOException {
-		try {
-			XmlValidator validator = new XmlValidator();
-			validator.validate(file, servletContextPath);
+    public JaxbService() throws JAXBException {
+        validator = new XmlValidator();
+        jaxbContext = JAXBContext.newInstance(Tasks.class);
+        jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        jaxbMarshaller = jaxbContext.createMarshaller();
+    }
 
-			// create JAXB context and initializing Marshaller
-			JAXBContext jaxbContext = JAXBContext.newInstance(Tasks.class);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			// specify the location and name of xml file to be read
-			// this will create Java object - country from the XML file
+    @Override
+    public List<Task> parseXml(File file, String servletContextPath) throws ParserConfigurationException, SAXException,
+            IOException {
+        try {
+            validator.validate(file, servletContextPath);
+            Tasks tasks = (Tasks) jaxbUnmarshaller.unmarshal(file);
+            return tasks.getTask();
+        } catch (JAXBException e) {
+            logger.error(e);
+        }
+        return null;
+    }
 
-			Tasks tasks = (Tasks) jaxbUnmarshaller.unmarshal(file);
+    public File getXml(List<Task> tasksList) throws ParserConfigurationException, TransformerException {
+        try {
+            File f = new File("tasks.xml");
+            Tasks tasks = new Tasks();
+            tasks.setTask(tasksList);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            jaxbMarshaller.marshal(tasks, f);
+            return f;
 
-			return tasks.getTask();
-		} catch (JAXBException e) {
-			// some exception occured
-			logger.error(e);
-		}
-		return null;
-	}
+        } catch (JAXBException e) {
+            logger.error(e);
+        }
+        return null;
+    }
 
-	public File getXml(List<Task> tasksList)
-			throws ParserConfigurationException, TransformerException {
-		try {
-			File f = new File("tasks.xml");
-			Tasks tasks = new Tasks();
-			tasks.setTask(tasksList);
-			JAXBContext jaxbContext = JAXBContext.newInstance(Tasks.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-			// output pretty printed
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			jaxbMarshaller.marshal(tasks, f);
-			return f;
-
-		} catch (JAXBException e) {
-			// some exception occured
-			logger.error(e);
-		}
-		return null;
-	}
+    void setXmlValidator(XmlValidator xmlValidator) {
+        this.validator = xmlValidator;
+    }
 }

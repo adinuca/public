@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+
 @Entity
 @Table(name="user")
 public class User implements Serializable {
@@ -44,12 +45,13 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public User(String username, String password) {
+	public User(String username, String email) {
 		this.username = username;
-		this.password = password;
+		this.email = email;
 	}
 
-	protected Integer getIdUser() {
+	
+    protected Integer getIdUser() {
 		return this.idUser;
 	}
 
