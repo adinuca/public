@@ -64,7 +64,7 @@ public class XmlImportController{
             File xml = null;
             try {
                 xml = saveFile(form);
-                User user = userService.getUserWithUsername((String) session.getAttribute(USER));
+                String user = (String) session.getAttribute(USER);
                 String contextPath = session.getServletContext().getRealPath("/");
                 xmlImportService.saveXmlContentInDatabase(xml, user, contextPath);
                 return new ModelAndView(SUCCESS_JSP);

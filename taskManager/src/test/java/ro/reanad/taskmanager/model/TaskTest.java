@@ -11,11 +11,11 @@ import ro.reanad.taskmanager.dao.exception.WrongSubtaskException;
 
 public class TaskTest {
 	static Task task;
-	static User u;
+	static String u;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		u = new User("username", "password");
+		u = "username";
 		task = new Task("testName",u);
 	}
 
@@ -109,7 +109,7 @@ public class TaskTest {
 
 	@Test
 	public void testGetUser() {
-		assertTrue(task.getUser()!=null);
+		assertTrue(task.getUserEmail()!=null);
 	}
 
 	@Test

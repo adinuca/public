@@ -38,7 +38,7 @@ public class TaskController {
 		ModelAndView mav = new ModelAndView("WEB-INF/jsp/manageTask.jsp");
 		
 		if (submit.equals("Add subtask")) {
-			Task task = new Task(userService.getUserWithUsername((String)request.getSession().getAttribute("user")));
+			Task task = new Task((String)request.getSession().getAttribute("user"));
 			mav.addObject("parentTask",generatedId);
 			mav.addObject("task", task);
 		} else if (submit.equals("Remove")) {
@@ -56,8 +56,8 @@ public class TaskController {
 	@RequestMapping(value = "/tasks.htm", method = RequestMethod.GET)
 	protected ModelAndView showAddPage(HttpServletRequest request,
 			HttpServletResponse response) {
-		Task task = new Task(userService.getUserWithUsername((String) request
-				.getSession().getAttribute("user")));
+		Task task = new Task((String) request
+				.getSession().getAttribute("user"));
 		ModelAndView mav = new ModelAndView("WEB-INF/jsp/manageTask.jsp");
 		mav.addObject("task", task);
 		return mav;

@@ -33,7 +33,7 @@ public class AddTaskController {
 	protected String addTask(@ModelAttribute("task") Task task,
 			BindingResult result, HttpSession session,
 			HttpServletRequest request) {
-	task.setUser(userService.getUserWithUsername((String)session.getAttribute("user")));
+	task.setUser((String)session.getAttribute("user"));
 		String parentTaskId = request.getParameter("parentTaskId");
 		if (taskService.getTaskWithId(task.getGeneratedId()) != null) {
 			Task originalTask = taskService.getTaskWithId(task.getGeneratedId());

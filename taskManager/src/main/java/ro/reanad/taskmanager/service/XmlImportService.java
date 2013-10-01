@@ -28,7 +28,7 @@ public class XmlImportService {
 		this.taskService = taskService;
 	}
 
-	public void saveXmlContentInDatabase(File xml, User user, String servletContextPath) throws ParserConfigurationException, SAXException, IOException {
+	public void saveXmlContentInDatabase(File xml, String user, String servletContextPath) throws ParserConfigurationException, SAXException, IOException {
 		if (xml != null) {
 			List<Task> tasks = xmlParsingService.parseXml(xml,
 					servletContextPath);
@@ -38,7 +38,7 @@ public class XmlImportService {
 		}
 	}
 
-	private void saveTasks(List<Task> tasks, User user, Task parentTask) {
+	private void saveTasks(List<Task> tasks, String user, Task parentTask) {
 		for (Task t : tasks) {
 			t.setUser(user);
 			List<Task> subtasks = t.getTask();

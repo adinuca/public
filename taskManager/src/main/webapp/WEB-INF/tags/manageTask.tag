@@ -18,7 +18,7 @@
 			<td><input type="hidden" name="dueDate" value=${task.dueDate}/></td>
 		</tr>
 		<tr>
-			<td><input type="hidden" name="user" value=${task.user}></input></td>
+			<td><input type="hidden" name="user" value=${task.userEmail}></input></td>
 		</tr>
  -->
 		<tr>

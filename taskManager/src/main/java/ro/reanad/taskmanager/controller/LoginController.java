@@ -4,7 +4,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,13 +25,6 @@ import ro.reanad.taskmanager.validators.LoginValidator;
 @Controller
 @RequestMapping("/login.htm")
 public class LoginController {
-	Logger logger = Logger.getLogger(LoginController.class);
-	@Autowired
-	private UserService userService;
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	protected ModelAndView login(@ModelAttribute("user") User user, BindingResult result, HttpSession session, HttpServletResponse response) {
@@ -41,23 +33,19 @@ public class LoginController {
 			if (result.hasErrors()) {
 				return new ModelAndView("index.jsp");
 			}
-			user = userService.authenticate(user.getUsername(), user.getPassword());
-			
+
 			if (user != null) {
-				logger.info("User has just logged in "+user.toString());
 				session.setAttribute("user", user.getUsername());
 				Cookie cookie = new Cookie("user", user.getUsername());
 				cookie.setMaxAge(1000);
 				response. addCookie(cookie);
 				return new ModelAndView("redirect:board.htm");
 			} else {
-				logger.debug("Loggin for user failed");		
 				return new ModelAndView("index.jsp", "loginErrorMessage",
 						"Wrong username or password!");
 			}
 		} catch (Exception e) {
 			
-			logger.error(e.getStackTrace().toString());
 			return new ModelAndView("index.jsp", "loginErrorMessage",
 					e.getMessage());
 

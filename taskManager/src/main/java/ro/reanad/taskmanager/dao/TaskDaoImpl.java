@@ -54,12 +54,12 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 	}
 
 	@Override
-	public List<Task> getTasksWithCategoryForUsername(String username,
+	public List<Task> getTasksWithCategoryForUsername(String userEmail,
 			String category) {
 		Session session = getSessionFactory().getCurrentSession();
 		Query query = session
-				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.user.username=:username and task.category=:category and task.parentTask=null");
-		query.setParameter("username", username);
+				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.userEmail=:userEmail and task.category=:category and task.parentTask=null");
+		query.setParameter("userEmail", userEmail);
 		query.setParameter("category", category);
 		@SuppressWarnings("unchecked")
 		List<Task> tasks = query.list();
@@ -71,8 +71,8 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 			String status) {
 		Session session = getSessionFactory().getCurrentSession();
 		Query query = session
-				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.user.username=:username and task.status=:status and task.parentTask=null");
-		query.setParameter("username", username);
+				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.userEmail=:userEmail and task.status=:status and task.parentTask=null");
+		query.setParameter("userEmail", username);
 		query.setParameter("status", status);
 		@SuppressWarnings("unchecked")
 		List<Task> tasks = query.list();
@@ -83,8 +83,8 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 	public List<Task> getTasksForUsername(String username) {
 		Session session = getSessionFactory().getCurrentSession();
 		Query query = session
-				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.user.username=:username and task.parentTask=null");
-		query.setParameter("username", username);
+				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.userEmail=:userEmail and task.parentTask=null");
+		query.setParameter("userEmail", username);
 		@SuppressWarnings("unchecked")
 		List<Task> tasks = query.list();
 		return tasks;

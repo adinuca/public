@@ -89,11 +89,10 @@ public class Task implements Serializable {
 	@XmlElement(required = true)
 	private String url;
 
-	@ManyToOne(cascade = {})
-	@JoinColumn(name = "idUser")
+
 	@NotNull
 	@XmlTransient
-	private User user;
+	private String userEmail;
 	// private List<String> comments;
 
 	@Column
@@ -110,15 +109,15 @@ public class Task implements Serializable {
 		this.parentTask = null;
 	}
 
-	public Task(User user) {
+	public Task(String userEmail) {
 		this();
-		this.user = user;
+		this.userEmail = userEmail;
 	}
 
-	public Task(String name, User user) {
+	public Task(String name, String userEmail) {
 		this();
 		this.name = name;
-		this.user = user;
+		this.userEmail = userEmail;
 	}
 
 	protected int getIdTask() {
@@ -204,12 +203,12 @@ public class Task implements Serializable {
 		this.url = url;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getStatus() {
