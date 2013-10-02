@@ -15,7 +15,8 @@ public class BoardController {
 	@RequestMapping(method = RequestMethod.GET)
 	protected ModelAndView getBoard(HttpServletRequest request,
 			HttpServletResponse response) {
-				return new ModelAndView("WEB-INF/jsp/board.jsp");
+		String user = (String) request.getSession().getAttribute("user");
+				return new ModelAndView("WEB-INF/jsp/board.jsp", "user", user);
 	}
 	/*@RequestMapping(method = RequestMethod.POST)
 	protected ModelAndView postBoard(HttpServletRequest request,

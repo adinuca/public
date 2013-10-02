@@ -9,9 +9,9 @@
 <meta charset="utf-8" />
 <title>Task manager</title>
 
-<link rel="stylesheet"
-	href="resources/css/jquery-ui.css" />
-	<link href="resources/css/bc-stylesheet.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="resources/css/jquery-ui.css" />
+<link href="resources/css/bc-stylesheet.css" rel="stylesheet"
+	type="text/css" />
 
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script src="resources/js/jquery.treeview.js" type="text/javascript"></script>
@@ -38,11 +38,16 @@
 <body>
 
 	<div id="container">
-		<div id="header"><ul>
-		</ul>
-	<div>
-		<h1><a href="#">Task Manager</a></h1>
-	</div></div>
+		<div id="header">
+			<ul>
+			</ul>
+			<div>
+				<h1>
+					<a href="#">Task Manager</a>
+				</h1>
+				<h3>Welcome ${user}!</h3>
+			</div>
+		</div>
 		<div id="content">
 			<div id="tabs">
 				<ul>
@@ -51,6 +56,10 @@
 					<li><a href="tasksDisplay.htm?category=personal">Personal</a></li>
 					<li><a href="tasksDisplay.htm?category=work">Work</a></li>
 					<li><a href="tasksDisplay.htm?category=goals">Goals</a></li>
+
+					<li><form name=input method=POST action="logout.htm">
+							<input type="submit" value="Logout" />
+					</form></li>
 					<!-- <li><a href="upload.htm">Upload tasks xml</a></li>
  -->
 				</ul>

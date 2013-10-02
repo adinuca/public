@@ -20,7 +20,7 @@
             if (typeof window.janrain !== 'object') window.janrain = {};
             if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
 
-            janrain.settings.tokenUrl = 'http://adina.reanad.ro:8080/taskManager/callback_url';
+            janrain.settings.tokenUrl = 'http://apetrean2-pc.esp.local:8080/taskManager/callback_url';
 
             function isReady() { janrain.ready = true; };
             if (document.addEventListener) {
@@ -84,14 +84,13 @@
 				dates.</p>
 			<p>Internationalization.</p>
 			<p>Use velocity</p>
-			<h2>You can create your own user, please use valid data, or at
-				least some words - not other chars.</h2>
+			
 			<table>
 				<tr>
-					<td> <div id="janrainEngageEmbed"></div></td>
-					<td><template:login /></td>
+					<td><h2> <a class="janrainEngage" href="#">Sign-In</a></h2></td>
+					<%-- <td><template:login /></td>
 					<td><template:register /></td>
-
+ --%>
 				</tr>
 			</table>
 		</div>
