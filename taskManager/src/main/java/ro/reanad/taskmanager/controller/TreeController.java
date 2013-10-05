@@ -10,12 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ro.reanad.taskmanager.model.Task;
-import ro.reanad.taskmanager.model.User;
-import ro.reanad.taskmanager.service.UserService;
 import ro.reanad.taskmanager.service.TaskService;
 
 /**
@@ -26,9 +23,12 @@ import ro.reanad.taskmanager.service.TaskService;
  */
 @Controller
 @RequestMapping("/tasksDisplay.htm")
-@SessionAttributes("user")
 public class TreeController {
-	@Autowired
+    private static final String TASKS = "tasks";
+    private static final String CATEGORY = "category";
+    private static final String TASKS_JSP = "WEB-INF/jsp/tasks.jsp";
+    private static final String USER = "user";
+    @Autowired
 	private TaskService taskService;
 
 	public void setTaskService(TaskService taskService) {
@@ -39,21 +39,21 @@ public class TreeController {
 	protected ModelAndView getTasks(HttpServletRequest request,
 			HttpServletResponse response) {
 	
-		List<Task> tasks = taskService.getAllTasksForUser((String) request.getSession().getAttribute("user"));
-		return new ModelAndView("WEB-INF/jsp/tasks.jsp", "tasks", tasks);
+		List<Task> tasks = taskService.getAllTasksForUser((String) request.getSession().getAttribute(USER));
+		return new ModelAndView(TASKS_JSP, TASKS, tasks);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	protected ModelAndView setTasks(HttpServletRequest request,
 			HttpServletResponse response) {
-		String category = request.getParameter("category");
+		String category = request.getParameter(CATEGORY);
 		List<Task> tasks=new ArrayList<Task>();
 		if(category==null){
-			tasks = taskService.getAllTasksForUser((String)request.getSession().getAttribute("user"));
+			tasks = taskService.getAllTasksForUser((String)request.getSession().getAttribute(USER));
 		}else{
-			tasks = taskService.getAllTasksFromCategoryForUser(((String)request.getSession().getAttribute("user")),category);
+			tasks = taskService.getAllTasksFromCategoryForUser(((String)request.getSession().getAttribute(USER)),category);
 		}
-		return new ModelAndView("WEB-INF/jsp/tasks.jsp", "tasks", tasks);
+		return new ModelAndView(TASKS_JSP, TASKS, tasks);
 	}
 
 }

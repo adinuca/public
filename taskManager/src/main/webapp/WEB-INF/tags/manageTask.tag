@@ -23,7 +23,7 @@
  -->
 		<tr>
 			<td>Name</td>
-			<td><input type="text" name="name" value=${task.name} ></input></td>
+			<td><input type="text" name="name" value="${task.name}"/> </td>
 		</tr>
 		<tr>
 			<td>Description</td>

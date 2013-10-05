@@ -14,11 +14,18 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class JanrainLoginServlet extends HttpServlet {
-	/**
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String apiKey = "c454ed8b22a40ad9e6618e862d700a28402e111a";
+    private static final String JANRAIN_URL = "https://rpxnow.com/api/v2/auth_info";
+    private static final String API_KEY_S_TOKEN_S = "apiKey=%s&token=%s";
+    private static final String UTF_8 = "UTF-8";
+    private static final String POST = "POST";
+    private static final String TASK_MANAGER_INDEX_HTM = "/taskManager/index.htm";
+    private static final String USER = "user";
+    private static final String TASK_MANAGER_BOARD_HTM = "/taskManager/board.htm";
+    private String apiKey = "c454ed8b22a40ad9e6618e862d700a28402e111a";
 
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
@@ -34,16 +41,16 @@ public class JanrainLoginServlet extends HttpServlet {
 		// see http://developers.janrain.com/documentation/api/auth_info/
 		// You may wish to make this HTTP request with e.g. Apache HttpClient
 		// instead.
-		URL url = new URL("https://rpxnow.com/api/v2/auth_info");
-		String params = String.format("apiKey=%s&token=%s",
-				URLEncoder.encode(apiKey, "UTF-8"),
-				URLEncoder.encode(token, "UTF-8"));
+		URL url = new URL(JANRAIN_URL);
+		String params = String.format(API_KEY_S_TOKEN_S,
+				URLEncoder.encode(apiKey, UTF_8),
+				URLEncoder.encode(token, UTF_8));
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod("POST");
+		connection.setRequestMethod(POST);
 		connection.setDoOutput(true);
 		connection.connect();
 		OutputStreamWriter writer = new OutputStreamWriter(
-				connection.getOutputStream(), "UTF-8");
+				connection.getOutputStream(), UTF_8);
 		writer.write(params);
 		writer.close();
 
@@ -51,18 +58,18 @@ public class JanrainLoginServlet extends HttpServlet {
 		if ("ok".equalsIgnoreCase(user.getStat())) {
 			setCookieAndReturnBoard(request, response, user);
 		} else
-			response.sendRedirect("/taskManager/index.htm");
+			response.sendRedirect(TASK_MANAGER_INDEX_HTM);
 	}
 
 	private void setCookieAndReturnBoard(HttpServletRequest request,
 			HttpServletResponse response, JanrainUser user) throws IOException {
 		HttpSession session = request.getSession();
-		session.setAttribute("user", user.getProfile().getVerifiedEmail());
-		Cookie cookie = new Cookie("user", user.getProfile()
+		session.setAttribute(USER, user.getProfile().getVerifiedEmail());
+		Cookie cookie = new Cookie(USER, user.getProfile()
 				.getVerifiedEmail());
 		cookie.setMaxAge(1000);
 		response.addCookie(cookie);
-		response.sendRedirect("/taskManager/board.htm");
+		response.sendRedirect(TASK_MANAGER_BOARD_HTM);
 	}
 
 	private JanrainUser getJanrainUser(HttpURLConnection connection)

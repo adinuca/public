@@ -21,11 +21,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  <servlet>
-  	<servlet-name>authorization</servlet-name>
-  	<servlet-class>ro.reanad.taskmanager.controller.AuthorizationServlet</servlet-class>
-  	<load-on-startup>1</load-on-startup>
-  </servlet>
+
   
   <servlet>
   	<servlet-name>register</servlet-name>
@@ -34,10 +30,6 @@
   </servlet>
   
   
-  <servlet-mapping>
-  	<servlet-name>authorization</servlet-name>
-  	<url-pattern>/index.htm</url-pattern>
-  </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>register</servlet-name>
   	<url-pattern>/callback_url</url-pattern>

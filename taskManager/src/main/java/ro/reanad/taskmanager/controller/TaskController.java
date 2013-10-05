@@ -10,56 +10,61 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ro.reanad.taskmanager.model.Task;
-import ro.reanad.taskmanager.model.User;
-import ro.reanad.taskmanager.service.UserService;
-import ro.reanad.taskmanager.service.UserServiceImpl;
 import ro.reanad.taskmanager.service.TaskService;
 
 @Controller
 public class TaskController {
-	@Autowired
-	TaskService taskService;
-	@Autowired
-	private UserService userService;
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+    private static final String TASKS_HTM = "/tasks.htm";
+    private static final String SUBMIT = "submit";
+    private static final String GENERATED_ID = "generatedId";
+    private static final String MANAGE_TASK_JSP = "WEB-INF/jsp/manageTask.jsp";
+    private static final String ADD_SUBTASK = "Add subtask";
+    private static final String USER = "user";
+    private static final String PARENT_TASK = "parentTask";
+    private static final String TASK = "task";
+    private static final String REMOVE = "Remove";
+    private static final String EDIT = "Edit";
+    private static final String ADD_TASK = "Add task";
+    private static final String SUCCESS_JSP = "WEB-INF/jsp/success.jsp";
+
+    @Autowired
+	private TaskService taskService;
 
 	public void setTaskService(TaskService taskService) {
 		this.taskService = taskService;
 	}
 
-	@RequestMapping(value = "/tasks.htm", method = RequestMethod.POST)
+	@RequestMapping(value = TASKS_HTM, method = RequestMethod.POST)
 	protected ModelAndView preparePageForGet(HttpServletRequest request,
 			HttpServletResponse response) {
-		String submit = request.getParameter("submit");
-		String generatedId = request.getParameter("generatedId");
-		ModelAndView mav = new ModelAndView("WEB-INF/jsp/manageTask.jsp");
+		String submit = request.getParameter(SUBMIT);
+		String generatedId = request.getParameter(GENERATED_ID);
+		ModelAndView mav = new ModelAndView(MANAGE_TASK_JSP);
 		
-		if (submit.equals("Add subtask")) {
-			Task task = new Task((String)request.getSession().getAttribute("user"));
-			mav.addObject("parentTask",generatedId);
-			mav.addObject("task", task);
-		} else if (submit.equals("Remove")) {
+		if (submit.equals(ADD_SUBTASK)) {
+			Task task = new Task((String)request.getSession().getAttribute(USER));
+			mav.addObject(PARENT_TASK,generatedId);
+			mav.addObject(TASK, task);
+		} else if (submit.equals(REMOVE)) {
 			return removeTask(request, response, generatedId);
-		} else if (submit.equals("Edit")) {
+		} else if (submit.equals(EDIT)) {
 			Task task = taskService.getTaskWithId(generatedId);
-			mav.addObject("task",task);
-		} else if (submit.equals("Add task")) {
+			mav.addObject(TASK,task);
+		} else if (submit.equals(ADD_TASK)) {
 			Task task = new Task();
-			mav.addObject("task",task);
+			mav.addObject(TASK,task);
 		}
 		return mav;
 	}
 
-	@RequestMapping(value = "/tasks.htm", method = RequestMethod.GET)
+	@RequestMapping(value = TASKS_HTM, method = RequestMethod.GET)
 	protected ModelAndView showAddPage(HttpServletRequest request,
 			HttpServletResponse response) {
 		Task task = new Task((String) request
-				.getSession().getAttribute("user"));
-		ModelAndView mav = new ModelAndView("WEB-INF/jsp/manageTask.jsp");
-		mav.addObject("task", task);
+				.getSession().getAttribute(USER));
+		ModelAndView mav = new ModelAndView(MANAGE_TASK_JSP);
+		mav.addObject(TASK, task);
 		return mav;
 	}
 
@@ -75,7 +80,7 @@ public class TaskController {
 		taskService.removeTask(generatedId);
 		request.setAttribute("removeMessage", "Task " + generatedId
 				+ " was removed\n");
-		return new ModelAndView("WEB-INF/jsp/success.jsp");
+		return new ModelAndView(SUCCESS_JSP);
 
 	}
 }

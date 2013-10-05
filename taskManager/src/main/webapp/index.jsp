@@ -20,7 +20,7 @@
             if (typeof window.janrain !== 'object') window.janrain = {};
             if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
 
-            janrain.settings.tokenUrl = 'http://apetrean2-pc.esp.local:8080/taskManager/callback_url';
+            janrain.settings.tokenUrl = 'http://localhost:8080/taskManager/callback_url';
 
             function isReady() { janrain.ready = true; };
             if (document.addEventListener) {

@@ -9,9 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="/errorPage.htm")
 public class ErrorPageController {
-	@RequestMapping(method = RequestMethod.GET)
-	protected ModelAndView getErrorPage(@ModelAttribute("errorMessage")Exception ex) {
-				return new ModelAndView("WEB-INF/jsp/errorPage.jsp","errorMesage",ex);
+
+    private static final String ERROR_PAGE_JSP = "WEB-INF/jsp/errorPage.jsp";
+    private static final String ERROR_MESSAGE = "errorMessage";
+
+    @RequestMapping(method = RequestMethod.GET)
+	protected ModelAndView getErrorPage(@ModelAttribute(ERROR_MESSAGE)Exception ex) {
+				return new ModelAndView(ERROR_PAGE_JSP, ERROR_MESSAGE,ex);
 	}
 	
 }

@@ -17,11 +17,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("logout.htm")
 public class LogoutController {
 
-	@RequestMapping(method = RequestMethod.POST)
+    private static final String REDIRECT_INDEX_JSP = "redirect:index.jsp";
+
+    @RequestMapping(method = RequestMethod.POST)
 	protected ModelAndView logout(HttpServletRequest request,
 			HttpServletResponse response) {
 		removeCookies(request);
-		return new ModelAndView("redirect:index.jsp");
+		return new ModelAndView(REDIRECT_INDEX_JSP);
 	}
 
 	private void removeCookies(HttpServletRequest request) {

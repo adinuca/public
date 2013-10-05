@@ -44,7 +44,6 @@ public class Task implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	@XmlTransient
 	private int idTask;
 
 	@XmlTransient
@@ -52,51 +51,40 @@ public class Task implements Serializable {
 
 	@Column(unique = true)
 	@NotNull
-	@XmlElement(required = true)
 	private String generatedId;
 
 	@Column
 	@NotNull
-	@XmlElement(required = true)
 	private String name;
+
 	@Column
-	@XmlElement(required = true)
 	private String description;
 
 	@Column
-	@XmlElement(required = true)
 	private String category;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "parentTaskId", insertable = true, updatable = true)
-	@XmlTransient
 	private Task parentTask;
 
 	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = "parentTask", fetch = FetchType.EAGER)
-	@XmlElement(name="task")
 	private List<Task> task= new ArrayList<Task>();
 
 	@Column
-	@XmlElement(required = true)
-	@XmlSchemaType(name = "date")
 	private Date dueDate;
 
 	@Column
-	@XmlElement(required = true)
 	private int timeSpent;
 	
 	@Column
-	@XmlElement(required = true)
 	private String url;
 
 
 	@NotNull
-	@XmlTransient
 	private String userEmail;
 	// private List<String> comments;
 
 	@Column
-	@XmlElement(required = true)
 	private String status;
 
 	public Task() {

@@ -12,15 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("board.htm")
 public class BoardController {
-	@RequestMapping(method = RequestMethod.GET)
+
+    private static final String BOARD_JSP = "WEB-INF/jsp/board.jsp";
+    private static final String USER = "user";
+
+    @RequestMapping(method = RequestMethod.GET)
 	protected ModelAndView getBoard(HttpServletRequest request,
 			HttpServletResponse response) {
-		String user = (String) request.getSession().getAttribute("user");
-				return new ModelAndView("WEB-INF/jsp/board.jsp", "user", user);
+		String user = (String) request.getSession().getAttribute(USER);
+				return new ModelAndView(BOARD_JSP, USER, user);
 	}
-	/*@RequestMapping(method = RequestMethod.POST)
-	protected ModelAndView postBoard(HttpServletRequest request,
-			HttpServletResponse response) {
-				return new ModelAndView("WEB-INF/jsp/board.jsp");
-	}*/
+
 }
