@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+            <File name="Kitchen" fileName="target/kitchen.log">
+                <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            </File>
+
+        <File name="Buyer" fileName="target/Buyer.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+
+        <File name="Supplier" fileName="target/Supplier.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="Kitchen" level="info">
+            <AppenderRef ref="Kitchen"/>
+        </Logger>
+
+        <Logger name="Buyer" level="info">
+            <AppenderRef ref="Buyer"/>
+        </Logger>
+
+        <Logger name="Supplier" level="info">
+            <AppenderRef ref="Supplier"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
