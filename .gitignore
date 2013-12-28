@@ -43,3 +43,10 @@
 /ResourceBundles/target/classes/internationalization/resourcebundles/CookieResourceBundle_en_CA.class
 /ResourceBundles/target/classes/internationalization/resourcebundles/CookieResourceBundle_ja_JP.class
 /Annotations/Annotations.iml
+
+/Annotations/target/classes/annotations/annotationprocessor/*.class
+/Annotations/target/classes/annotations/annotationprocessor/*.class
+/Annotations/target/classes/annotations/typeone/*.class
+/Annotations/target/classes/annotations/typeone/*.class
+/Annotations/target/classes/annotations/typeone/*.class
+/Annotations/target/classes/annotations/typeone/*.class

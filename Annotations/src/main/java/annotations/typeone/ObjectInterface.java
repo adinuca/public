@@ -1,4 +1,4 @@
-package annotations;
+package annotations.typeone;
 
 public interface ObjectInterface {
 
