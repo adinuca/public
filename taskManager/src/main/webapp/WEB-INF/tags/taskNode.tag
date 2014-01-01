@@ -5,8 +5,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
-
-
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <li>
 	<form class="taskForm" name=input method=POST action=tasks.htm
@@ -14,12 +13,15 @@
 		onsubmit="POPUPW = window.open('about:blank','POPUPW',
    'width=600,height=400');">
 		<p class="taskName">${task.name}</p>
-		<input type=hidden name="generatedId" value="${task.generatedId}"></input>
+		<input type=hidden name="generatedId" value="${task.generatedId}">
 		<input class="taskFormButtons" type=submit name=submit
-			value="Add subtask" /> <input class="taskFormButtons " type=submit
-			name=submit value="Edit" /> <input class="taskFormButtons "
-			type=submit name=submit value="Remove" />
-	</form> <c:if test="${fn:length(task.task)>0}">
+			value=<spring:message code="label.addsubtask"/> >
+        <input class="taskFormButtons " type=submit
+			name=submit value=<spring:message code="label.edit"/>>
+        <input class="taskFormButtons "
+			type=submit name=submit value=<spring:message code="label.remove"/> >
+	</form>
+    <c:if test="${fn:length(task.task)>0}">
 		<ul>
 			<c:forEach var="subtask" items="${task.task}">
 				<template:taskNode task="${subtask}">

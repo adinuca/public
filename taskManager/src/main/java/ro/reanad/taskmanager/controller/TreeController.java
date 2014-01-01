@@ -16,7 +16,7 @@ import ro.reanad.taskmanager.model.Task;
 import ro.reanad.taskmanager.service.TaskService;
 
 /**
- * Controller handles the request and returnes the ModelAndView
+ * Controller handles the request and returns the ModelAndView
  * 
  * @author adinuca
  * 
@@ -47,7 +47,7 @@ public class TreeController {
 	protected ModelAndView setTasks(HttpServletRequest request,
 			HttpServletResponse response) {
 		String category = request.getParameter(CATEGORY);
-		List<Task> tasks=new ArrayList<Task>();
+		List<Task> tasks;
 		if(category==null){
 			tasks = taskService.getAllTasksForUser((String)request.getSession().getAttribute(USER));
 		}else{

@@ -8,15 +8,21 @@ import java.util.Map;
 
 public class Buyer implements Runnable {
 
-    private final int quantity;
-    private final Products product;
+    private int quantity;
+    private Products product;
     private final Map<Products, Integer> ingredientsAndProducts;
     private final static Logger logger = LogManager.getLogger("Buyer");
 
-    public Buyer(int quantity, Products product, Map<Products, Integer> allIngredientsAndProducts) {
-        this.quantity = quantity;
-        this.product = product;
+    public Buyer(Map<Products, Integer> allIngredientsAndProducts) {
         ingredientsAndProducts = allIngredientsAndProducts;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setProduct(Products product) {
+        this.product = product;
     }
 
     @Override

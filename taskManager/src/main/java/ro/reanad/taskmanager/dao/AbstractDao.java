@@ -16,7 +16,7 @@ public abstract class AbstractDao {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    protected SessionFactory getSessionFactory() {
+    SessionFactory getSessionFactory() {
         return sessionFactory;
     }
     

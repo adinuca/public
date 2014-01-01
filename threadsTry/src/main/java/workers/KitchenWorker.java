@@ -9,12 +9,15 @@ import java.util.Map;
 
 public class KitchenWorker implements Runnable {
     private final Map<Products, Integer> ingredientsAndProducts;
-    private final GeneralRecipe recipe;
+    private GeneralRecipe recipe;
     private final static Logger logger = LogManager.getLogger("Kitchen");
 
-    public KitchenWorker(GeneralRecipe receipe, Map<Products, Integer> allIngredientsAndProducts) {
+    public KitchenWorker(Map<Products, Integer> allIngredientsAndProducts) {
         ingredientsAndProducts = allIngredientsAndProducts;
-        this.recipe = receipe;
+    }
+
+    public void setRecipe(GeneralRecipe recipe) {
+        this.recipe = recipe;
     }
 
     @Override

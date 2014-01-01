@@ -11,7 +11,7 @@ import ro.reanad.taskmanager.model.Task;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-	private Logger logger = Logger.getLogger(TaskServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(TaskServiceImpl.class);
 	private TaskDao taskDao;
 
 	@Autowired
@@ -27,8 +27,9 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void addSubtask(String parentTaskId, Task task){
 		Task parentTask = taskDao.getTask(parentTaskId);
-		task.setParentTask(parentTask);
-		taskDao.createTask(task);
+        System.out.println(parentTask);
+        task.setParentTask(parentTask);
+        taskDao.createTask(task);
 	}
 
 	private void addTask(Task task) {

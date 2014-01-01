@@ -17,10 +17,12 @@ public class ProducerThread implements Runnable {
     private final Map<Products, Integer> allProducts;
     private final ExecutorService service;
     private final List<GeneralRecipe> recipes;
+    private final KitchenWorker kitchenWorker;
 
     public ProducerThread(Map<Products, Integer> allProducts, ExecutorService service) {
         this.allProducts = allProducts;
         this.service = service;
+        this.kitchenWorker = new KitchenWorker(allProducts);
         recipes = new ArrayList<GeneralRecipe>();
         recipes.add(new BiscuitRecipe());
         recipes.add(new ChocolateCakeRecipe());
@@ -32,7 +34,8 @@ public class ProducerThread implements Runnable {
     public void run() {
         long time = 100;
         while (time-- > 0) {
-            service.submit(new KitchenWorker(getNewTask(), allProducts));
+            kitchenWorker.setRecipe(getNewTask());
+            service.submit(kitchenWorker);
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {

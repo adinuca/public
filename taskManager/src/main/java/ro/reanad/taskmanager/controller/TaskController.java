@@ -29,58 +29,60 @@ public class TaskController {
     private static final String SUCCESS_JSP = "WEB-INF/jsp/success.jsp";
 
     @Autowired
-	private TaskService taskService;
+    private TaskService taskService;
 
-	public void setTaskService(TaskService taskService) {
-		this.taskService = taskService;
-	}
+    public void setTaskService(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
-	@RequestMapping(value = TASKS_HTM, method = RequestMethod.POST)
-	protected ModelAndView preparePageForGet(HttpServletRequest request,
-			HttpServletResponse response) {
-		String submit = request.getParameter(SUBMIT);
-		String generatedId = request.getParameter(GENERATED_ID);
-		ModelAndView mav = new ModelAndView(MANAGE_TASK_JSP);
-		
-		if (submit.equals(ADD_SUBTASK)) {
-			Task task = new Task((String)request.getSession().getAttribute(USER));
-			mav.addObject(PARENT_TASK,generatedId);
-			mav.addObject(TASK, task);
-		} else if (submit.equals(REMOVE)) {
-			return removeTask(request, response, generatedId);
-		} else if (submit.equals(EDIT)) {
-			Task task = taskService.getTaskWithId(generatedId);
-			mav.addObject(TASK,task);
-		} else if (submit.equals(ADD_TASK)) {
-			Task task = new Task();
-			mav.addObject(TASK,task);
-		}
-		return mav;
-	}
+    @RequestMapping(value = TASKS_HTM, method = RequestMethod.POST)
+    protected ModelAndView preparePageForGet(HttpServletRequest request,
+                                             HttpServletResponse response) {
+        String submit = request.getParameter(SUBMIT);
+        String parentId = request.getParameter(GENERATED_ID);
+        ModelAndView mav = new ModelAndView(MANAGE_TASK_JSP);
 
-	@RequestMapping(value = TASKS_HTM, method = RequestMethod.GET)
-	protected ModelAndView showAddPage(HttpServletRequest request,
-			HttpServletResponse response) {
-		Task task = new Task((String) request
-				.getSession().getAttribute(USER));
-		ModelAndView mav = new ModelAndView(MANAGE_TASK_JSP);
-		mav.addObject(TASK, task);
-		return mav;
-	}
+        if (submit.equals(REMOVE)) {
+            return removeTask(request, response, parentId);
+        } else if (submit.equals(EDIT)) {
+            Task task = taskService.getTaskWithId(parentId);
+            mav.addObject(TASK, task);
+        } else if (submit.equals(ADD_TASK)) {
+            if (parentId != null && !parentId.isEmpty()) {
+                System.out.println("Parent id " + parentId);
 
-	/*private ModelAndView editTask(HttpServletRequest request,
-			HttpServletResponse response, String generatedId) {
-		Task t = taskService.getTaskWithId(generatedId);
-		ModelAndView mav = new ModelAndView()
-		return "/WEB-INF/jsp/editTask.jsp";
-	}
+                mav.addObject(PARENT_TASK, parentId);
+            }
+            Task task = new Task((String) request.getSession().getAttribute(USER));
+            mav.addObject(TASK, task);
+        }
+        return mav;
+    }
 
-*/	private ModelAndView removeTask(HttpServletRequest request,
-			HttpServletResponse response, String generatedId) {
-		taskService.removeTask(generatedId);
-		request.setAttribute("removeMessage", "Task " + generatedId
-				+ " was removed\n");
-		return new ModelAndView(SUCCESS_JSP);
+    @RequestMapping(value = TASKS_HTM, method = RequestMethod.GET)
+    protected ModelAndView showAddPage(HttpServletRequest request,
+                                       HttpServletResponse response) {
+        Task task = new Task((String) request
+                .getSession().getAttribute(USER));
+        ModelAndView mav = new ModelAndView(MANAGE_TASK_JSP);
+        mav.addObject(TASK, task);
+        return mav;
+    }
 
-	}
+    /*private ModelAndView editTask(HttpServletRequest request,
+            HttpServletResponse response, String generatedId) {
+        Task t = taskService.getTaskWithId(generatedId);
+        ModelAndView mav = new ModelAndView()
+        return "/WEB-INF/jsp/editTask.jsp";
+    }
+
+*/
+    private ModelAndView removeTask(HttpServletRequest request,
+                                    HttpServletResponse response, String generatedId) {
+        taskService.removeTask(generatedId);
+        request.setAttribute("removeMessage", "Task " + generatedId
+                + " was removed\n");
+        return new ModelAndView(SUCCESS_JSP);
+
+    }
 }

@@ -25,7 +25,7 @@ public class JanrainLoginServlet extends HttpServlet {
     private static final String TASK_MANAGER_INDEX_HTM = "/taskManager/index.htm";
     private static final String USER = "user";
     private static final String TASK_MANAGER_BOARD_HTM = "/taskManager/board.htm";
-    private String apiKey = "c454ed8b22a40ad9e6618e862d700a28402e111a";
+    private String apiKey = "801b632c30f5400cd14b040880557bad72b9d13b";
 
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
@@ -64,6 +64,7 @@ public class JanrainLoginServlet extends HttpServlet {
 	private void setCookieAndReturnBoard(HttpServletRequest request,
 			HttpServletResponse response, JanrainUser user) throws IOException {
 		HttpSession session = request.getSession();
+        String userEmail = user.getProfile().getVerifiedEmail();
 		session.setAttribute(USER, user.getProfile().getVerifiedEmail());
 		Cookie cookie = new Cookie(USER, user.getProfile()
 				.getVerifiedEmail());

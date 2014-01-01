@@ -12,10 +12,12 @@ public class BuyerThread implements Runnable {
     private final Map<Products, Integer> allProducts;
     private final ExecutorService service;
     private final Products[] listAvailableProducts = Products.values();
+    private final Buyer buyer;
 
     public BuyerThread(Map<Products, Integer> allProducts, ExecutorService service) {
         this.allProducts = allProducts;
         this.service = service;
+        this.buyer = new Buyer(allProducts);
     }
 
 
@@ -24,12 +26,18 @@ public class BuyerThread implements Runnable {
         long time = 200;
         while (time-- > 0) {
             Products p = getNewTask();
-            service.submit(new Buyer(p.getMaximumQuantity() / 5, p, allProducts));
+            buyer.setProduct(p);
+            buyer.setQuantity(getQuantity(p));
+            service.submit(buyer);
             try {
                 Thread.sleep(70);
             } catch (InterruptedException e) {
             }
         }
+    }
+
+    private int getQuantity(Products p) {
+        return Math.abs(new Random().nextInt( p.getMaximumQuantity()));
     }
 
     private Products getNewTask() {

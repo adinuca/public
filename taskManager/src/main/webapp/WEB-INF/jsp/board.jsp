@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"
-	import="ro.reanad.taskmanager.model.Task,java.util.List"%>
+	pageEncoding="ISO-8859-1"%>
 
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -34,16 +34,14 @@
 <link href="CSS/tasks.css" rel="stylesheet" type="text/css" />
 </head>
 
-</head>
 <body>
-
 	<div id="container">
 		<div id="header">
 			<ul>
 			</ul>
 			<div>
 				<h1>
-					<a href="#">Task Manager</a>
+					<a href="#"><spring:message code="label.title"/></a>
 				</h1>
 				<h3>Welcome ${user}!</h3>
 			</div>
@@ -51,19 +49,25 @@
 		<div id="content">
 			<div id="tabs">
 				<ul>
-					<li><a href="tasksDisplay.htm">All</a></li>
-					<li><a href="tasksDisplay.htm?category=home">Home</a></li>
-					<li><a href="tasksDisplay.htm?category=personal">Personal</a></li>
-					<li><a href="tasksDisplay.htm?category=work">Work</a></li>
-					<li><a href="tasksDisplay.htm?category=goals">Goals</a></li>
+					<li><a href="tasksDisplay.htm"><spring:message code="label.all"/></a></li>
+					<li><a href="tasksDisplay.htm?category=home"><spring:message code="label.home"/></a></li>
+					<li><a href="tasksDisplay.htm?category=personal"><spring:message code="label.personal"/></a></li>
+					<li><a href="tasksDisplay.htm?category=work"><spring:message code="label.work"/></a></li>
+					<li><a href="tasksDisplay.htm?category=goals"><spring:message code="label.goals"/></a></li>
 
 					<li><form name=input method=POST action="logout.htm">
-							<input type="submit" value="Logout" />
+							<input type="submit" value="<spring:message code="label.logout"/>" />
 					</form></li>
 					<!-- <li><a href="upload.htm">Upload tasks xml</a></li>
  -->
 				</ul>
-			</div>
+                <span style="float: right">
+                <a href="?lang=en">en</a>
+                |
+                <a href="?lang=ro">ro</a>
+                </span>
+
+            </div>
 		</div>
 		<div id="footer"></div>
 	</div>

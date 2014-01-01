@@ -10,8 +10,8 @@ import org.junit.Test;
 import ro.reanad.taskmanager.dao.exception.WrongSubtaskException;
 
 public class TaskTest {
-	static Task task;
-	static String u;
+	private static Task task;
+	private static String u;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

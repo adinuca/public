@@ -7,5 +7,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<import resource="DataSource.xml" />
 	<!-- Beans Declaration -->
 	<import resource="taskManager.xml" />
+    <!-- i18n Configuration -->
+    <import resource="../webapp/WEB-INF/i18n.xml" />
 
 </beans>

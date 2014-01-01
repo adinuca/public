@@ -13,7 +13,7 @@ import ro.reanad.taskmanager.model.Task;
 
 @Repository
 public class TaskDaoImpl extends AbstractDao implements TaskDao {
-	private Logger logger = LoggerFactory.getLogger(TaskDaoImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(TaskDaoImpl.class);
 	@Override
 	public void modifyTask(Task task) {
 		logger.debug("Modified task ",task.toString());
@@ -27,7 +27,7 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 			logger.info("Created task ", task.toString());
 		} catch (ConstraintViolationException ex) {
 			if (ex.getLocalizedMessage().contains("generatedId_UNIQUE")) {
-				task.generateNewId();
+				task.generateId();
 				createTask(task);
 			}
 		}
@@ -49,8 +49,7 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 		Query query = session
 				.createQuery("from Task as task where task.generatedId=:generatedId");
 		query.setParameter("generatedId", generatedId);
-		Task task = (Task) query.uniqueResult();
-		return task;
+        return (Task) query.uniqueResult();
 	}
 
 	@Override
@@ -61,9 +60,7 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.userEmail=:userEmail and task.category=:category and task.parentTask=null");
 		query.setParameter("userEmail", userEmail);
 		query.setParameter("category", category);
-		@SuppressWarnings("unchecked")
-		List<Task> tasks = query.list();
-		return tasks;
+        return query.list();
 	}
 
 	@Override
@@ -74,9 +71,7 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.userEmail=:userEmail and task.status=:status and task.parentTask=null");
 		query.setParameter("userEmail", username);
 		query.setParameter("status", status);
-		@SuppressWarnings("unchecked")
-		List<Task> tasks = query.list();
-		return tasks;
+        return query.list();
 	}
 
 	@Override
@@ -85,9 +80,7 @@ public class TaskDaoImpl extends AbstractDao implements TaskDao {
 		Query query = session
 				.createQuery("from ro.reanad.taskmanager.model.Task as task where task.userEmail=:userEmail and task.parentTask=null");
 		query.setParameter("userEmail", username);
-		@SuppressWarnings("unchecked")
-		List<Task> tasks = query.list();
-		return tasks;
+        return query.list();
 	}
 }
 

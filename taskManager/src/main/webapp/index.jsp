@@ -34,9 +34,9 @@
             e.id = 'janrainAuthWidget';
 
             if (document.location.protocol === 'https:') {
-                e.src = 'https://rpxnow.com/js/lib/adina-test/engage.js';
+                e.src = 'https://rpxnow.com/js/lib/reanad/engage.js';
             } else {
-                e.src = 'http://widget-cdn.rpxnow.com/js/lib/adina-test/engage.js';
+                e.src = 'http://widget-cdn.rpxnow.com/js/lib/reanad/engage.js';
             }
 
             var s = document.getElementsByTagName('script')[0];
@@ -87,10 +87,7 @@
 			
 			<table>
 				<tr>
-					<td><h2> <a class="janrainEngage" href="#">Sign-In</a></h2></td>
-					<%-- <td><template:login /></td>
-					<td><template:register /></td>
- --%>
+                    <div id="janrainEngageEmbed"></div>
 				</tr>
 			</table>
 		</div>

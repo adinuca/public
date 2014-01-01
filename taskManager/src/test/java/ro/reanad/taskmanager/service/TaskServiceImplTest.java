@@ -16,7 +16,7 @@ import ro.reanad.taskmanager.model.Task;
 public class TaskServiceImplTest {
 	private static TaskServiceImpl taskService;
 	
-	String parentGeneratedId="parentGeneratedId";
+	private static final String parentGeneratedId="parentGeneratedId";
 	@Mock
 	Task mockSubtask;
 	@Mock

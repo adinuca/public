@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,28 +21,33 @@ public class AddTaskController {
     private static final String EMPTY_STRING = "";
 
     @Autowired
-	private TaskService taskService;
+    private TaskService taskService;
 
 
-	public void setTaskService(TaskService taskService) {
-		this.taskService = taskService;
-	}
+    public void setTaskService(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
-	@RequestMapping(value = "/addTask.htm", method = RequestMethod.POST)
-	protected String addTask(@ModelAttribute(TASK) Task task,
-			BindingResult result, HttpSession session,
-			HttpServletRequest request) {
-	task.setUser((String)session.getAttribute(USER));
-		String parentTaskId = request.getParameter(PARENT_TASK_ID);
-		if (taskService.getTaskWithId(task.getGeneratedId()) != null) {
+    @RequestMapping(value = "/addTask.htm", method = RequestMethod.POST)
+    protected String addTask(@ModelAttribute(TASK) Task task, HttpSession session,
+                             HttpServletRequest request) {
+        String userEmail = (String) session.getAttribute(USER);
+        task.setUser(userEmail);
+        String parentTaskId = request.getParameter(PARENT_TASK_ID);
+        System.out.println("ParentTask id "+ parentTaskId);
+        System.out.println("ParentTask id "+ task.getParentTask().toString());
+
+        if (taskService.getTaskWithId(task.getGeneratedId()) != null) {
             modifyTask(task);
-		} else if ((parentTaskId == null ) || ( EMPTY_STRING.equals(parentTaskId))) {
-			taskService.createTask(task);
-		} else {
-			taskService.addSubtask(parentTaskId, task);
-		}
-		return SUCCESS_JSP;
-	}
+        } else if ((parentTaskId == null) || (EMPTY_STRING.equals(parentTaskId))) {
+            task.generateId();
+            taskService.createTask(task);
+        } else {
+            task.generateId();
+            taskService.addSubtask(parentTaskId, task);
+        }
+        return SUCCESS_JSP;
+    }
 
     private void modifyTask(Task task) {
         Task originalTask = taskService.getTaskWithId(task.getGeneratedId());

@@ -9,5 +9,6 @@
 	<import resource="DataSource.xml" />
 	<!-- Beans Declaration -->
 	<import resource="taskManager.xml" />
-
+    <!-- i18n Configuration -->
+    <import resource="i18n.xml" />
 </beans>

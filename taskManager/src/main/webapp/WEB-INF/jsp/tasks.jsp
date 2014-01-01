@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 
@@ -15,7 +16,7 @@
 	<ul>
 		<li>
 			<form class="taskForm" name=input method=POST>
-				<p class="taskName">Tasks</p>
+				<p class="taskName"><spring:message code="label.tasks"/></p>
 				<input type=hidden name="generatedId" value=""/> 
 				<input
 					class="taskFormButtons" type=button name=submit value="Add task"
