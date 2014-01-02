@@ -1,4 +1,4 @@
-package ro.reanad.taskmanager.controller;
+package ro.reanad.taskmanager.controller.authentication;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("index.htm")
 public class AuthorizationController {
 	@RequestMapping(method = RequestMethod.GET)
-	protected ModelAndView getLoggedUser(HttpServletRequest request,
-			HttpServletResponse response) {
+	protected ModelAndView getLoggedUser(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {

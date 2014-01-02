@@ -25,7 +25,7 @@
   
   <servlet>
   	<servlet-name>register</servlet-name>
-  	<servlet-class>ro.reanad.taskmanager.controller.JanrainLoginServlet</servlet-class>
+  	<servlet-class>ro.reanad.taskmanager.controller.authentication.JanrainLoginServlet</servlet-class>
   	<load-on-startup>1</load-on-startup>
   </servlet>
   

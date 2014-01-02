@@ -1,4 +1,4 @@
-package ro.reanad.taskmanager.controller;
+package ro.reanad.taskmanager.controller.authentication;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -8,11 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-/**
- * @author adinuca
- * 
- */
 @Controller
 @RequestMapping("logout.htm")
 public class LogoutController {
@@ -23,6 +18,8 @@ public class LogoutController {
 	protected ModelAndView logout(HttpServletRequest request,
 			HttpServletResponse response) {
 		removeCookies(request);
+        request.getSession()
+                .setAttribute("user", "");
 		return new ModelAndView(REDIRECT_INDEX_JSP);
 	}
 

@@ -32,8 +32,9 @@ public class TaskServiceImplTest {
 	@Test
 	public void testAddSubtask(){
 		taskService.setTaskDao(mockTaskDao);
-		when(mockTaskDao.getTask(parentGeneratedId)).thenReturn(mockParentTask);
-		taskService.addSubtask(parentGeneratedId, mockSubtask);
+        when(mockSubtask.getParentTaskId()).thenReturn(parentGeneratedId);
+        when(mockTaskDao.getTask(parentGeneratedId)).thenReturn(mockParentTask);
+		taskService.addSubtask( mockSubtask);
 		verify(mockTaskDao).createTask(mockSubtask);
 	}
 }

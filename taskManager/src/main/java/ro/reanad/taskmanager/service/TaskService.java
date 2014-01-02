@@ -14,7 +14,7 @@ public interface TaskService {
 
 	List<Task> getAllTasksForUser(String username);
 
-	void addSubtask(String parentTaskId, Task task);
+	void addSubtask(Task task);
 
 	void removeTask(String generatedId);
 

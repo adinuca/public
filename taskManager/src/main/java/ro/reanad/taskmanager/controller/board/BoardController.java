@@ -1,4 +1,4 @@
-package ro.reanad.taskmanager.controller;
+package ro.reanad.taskmanager.controller.board;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

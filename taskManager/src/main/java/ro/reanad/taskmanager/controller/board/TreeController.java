@@ -1,4 +1,4 @@
-package ro.reanad.taskmanager.controller;
+package ro.reanad.taskmanager.controller.board;
 
 import java.util.ArrayList;
 import java.util.List;

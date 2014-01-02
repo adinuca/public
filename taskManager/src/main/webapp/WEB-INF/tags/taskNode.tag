@@ -14,12 +14,12 @@
    'width=600,height=400');">
 		<p class="taskName">${task.name}</p>
 		<input type=hidden name="generatedId" value="${task.generatedId}">
-		<input class="taskFormButtons" type=submit name=submit
+		<input class="taskFormButtons" type=submit name=add
 			value=<spring:message code="label.addsubtask"/> >
         <input class="taskFormButtons " type=submit
-			name=submit value=<spring:message code="label.edit"/>>
+			name=edit value=<spring:message code="label.edit"/>>
         <input class="taskFormButtons "
-			type=submit name=submit value=<spring:message code="label.remove"/> >
+			type=submit name=remove value=<spring:message code="label.remove"/> >
 	</form>
     <c:if test="${fn:length(task.task)>0}">
 		<ul>

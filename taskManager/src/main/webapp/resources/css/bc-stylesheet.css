@@ -61,7 +61,18 @@ acronym { border-bottom: 1px dotted #cc0000; cursor: help; }
 	color: #000;	
 	}	
 #header h1 a:hover { background-color: transparent; }	
-* html #header h1 { padding-top: 23px; }	
+* html #header h1 { padding-top: 23px; }
+/*------------------------------------------------------------*
+**  Language
+**------------------------------------------------------------*/
+#language {
+    width: 750px;
+    margin: 0 auto;
+    padding: 0;
+}
+#language div {
+    padding: 20px 0 20px 20px;
+}
 
 /*------------------------------------------------------------*
 **  Navigation

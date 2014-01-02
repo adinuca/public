@@ -25,8 +25,8 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void addSubtask(String parentTaskId, Task task){
-		Task parentTask = taskDao.getTask(parentTaskId);
+	public void addSubtask(Task task){
+		Task parentTask = taskDao.getTask(task.getParentTaskId());
         System.out.println(parentTask);
         task.setParentTask(parentTask);
         taskDao.createTask(task);

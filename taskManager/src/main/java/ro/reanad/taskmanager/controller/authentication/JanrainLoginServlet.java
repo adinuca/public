@@ -1,4 +1,4 @@
-package ro.reanad.taskmanager.controller;
+package ro.reanad.taskmanager.controller.authentication;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;

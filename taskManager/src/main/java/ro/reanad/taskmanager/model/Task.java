@@ -6,17 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import ro.reanad.taskmanager.dao.exception.WrongSubtaskException;
@@ -47,6 +37,9 @@ public class Task implements Serializable {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "parentTaskId", insertable = true, updatable = true)
     private Task parentTask;
+
+    @Transient
+    private String parentTaskId;
 
     @OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "parentTask", fetch = FetchType.EAGER)
     private List<Task> task = new ArrayList<Task>();
@@ -189,6 +182,14 @@ public class Task implements Serializable {
         this.generatedId = (int) (Math.round(Math.random() * 1000)) + "Task";
     }
 
+    public String getParentTaskId() {
+        return parentTaskId;
+    }
+
+    public void setParentTaskId(String parentTaskId) {
+        this.parentTaskId = parentTaskId;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -197,7 +198,6 @@ public class Task implements Serializable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", category='" + category + '\'' +
-                ", parentTask=" + parentTask +
                 ", task=" + task +
                 ", dueDate=" + dueDate +
                 ", timeSpent=" + timeSpent +

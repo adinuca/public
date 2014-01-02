@@ -47,16 +47,8 @@
 
 <body>
 	<div id="container">
-		<div id="header">
-			<ul>
-			</ul>
-
-			<div>
-				<h1>
-					<a href="#">Task Manager</a>
-				</h1>
-			</div>
-		</div>
+		<template:header/>
+        <template:language/>
 		<div id="content">
 			<h2 id="idea">Improvements and fixes</h2>
 			<h3>Fixes</h3>
